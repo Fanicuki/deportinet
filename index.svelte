@@ -3,6 +3,7 @@
 </script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <div class="container-fluid">
 
@@ -28,10 +29,9 @@
                 <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg></a>
-            <a class="profile" type="button" href="#"><svg width="46" height="46" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <path d="M12 3a4 4 0 1 0 0 8 4 4 0 1 0 0-8z"></path>
-            </svg></a>
+            <a class="profile" type="button" href="login.svelte">
+                Iniciar Sesión
+            </a>
           
             </div>
         </div>
@@ -65,18 +65,15 @@
 
 .profile {
     margin-right: 20px;
+    text-decoration: none;
+    color: #fff;
 }
 
 .navbar-brand {
-    color: #fff;
-    transition: ease-in-out .1s;
+    color: #fff !important;
     margin-left: 20px;
 }
-.navbar-brand:hover {
-    color: orange;
-    font-size: 22px;
-    transition: ease-in-out .1s;
-}
+
 .content {
     position: fixed;
     left: 200px;

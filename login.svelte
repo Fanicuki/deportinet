@@ -1,9 +1,14 @@
 <script>
 
 </script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<div class="contenedor">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- <div class="contenedor">
     <div class="content">
         <form>
                 <svg width="46" height="46" fill="none" stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -35,12 +40,35 @@
           </form>
     </div>
     
+</div> -->
+
+<div class="main">  	
+    <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="login">
+            <form>
+                <label for="chk" aria-hidden="true">Iniciar Sesión</label>
+                <input type="email" name="email" placeholder="Usuario" required="">
+                <input type="password" name="pswd" placeholder="Contraseña" required="">
+                <button>Entrar</button>
+            </form>
+        </div>
+
+        <div class="signup">
+            <form>
+                <label for="chk" aria-hidden="true">Crear Usuario</label>
+                <input type="text" name="txt" placeholder="Usuario" required="">
+                <input type="email" name="email" placeholder="Email" required="">
+                <input type="password" name="pswd" placeholder="Contraseña" required="">
+                <button>Registrarse</button>
+            </form>
+        </div>
 </div>
 
 
 <style>
 
-.contenedor {
+/* .contenedor {
     background-color: #244a9c;
     width: 100%;
     height: 100%;
@@ -60,6 +88,97 @@
 
 form label {
     color: white;
+} */
+
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif;
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
+.main{
+	width: 350px;
+	height: 500px;
+	background: #3165d4;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+}
+#chk{
+	display: none;
+}
+.login{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+label{
+	color: #fff;
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 50px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+input{
+	width: 60%;
+	height: 10px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 12px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+button{
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: orange;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 30px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+button:hover{
+	background: rgb(179, 116, 0);
+}
+.signup{
+	height: 460px;
+	background: #eee;
+	border-radius: 60% / 10%;
+	transform: translateY(-180px);
+	transition: .8s ease-in-out;
+}
+.signup label{
+	color: orange;
+	transform: scale(.6);
+}
+
+#chk:checked ~ .signup{
+	transform: translateY(-500px);
+}
+#chk:checked ~ .signup label{
+	transform: scale(1);	
+}
+#chk:checked ~ .login label{
+	transform: scale(.6);
+}
+
 
 </style>
