@@ -4,7 +4,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<div class="container">
+<div class="container-fluid">
 
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
@@ -23,41 +23,49 @@
             DeportiNet
           </a>
         </div>
-      </nav>
-
-
-      <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    
-                    <li>
-                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Catalogo</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    
-                </ul>
-                <hr>
-                
-            </div>
-        </div>
-        <div class="col py-3">
-            CONTENIDO
-        </div>
+    </nav>
+    <div class="sidebar">
+        <a href="#home">Inicio</a>
+        <a href="#tutorials">Catalogo</a>
     </div>
+    <div class="content">
+
+    </div>
+</div>
 <style>
 
-.container {
-    margin: 0;
-    padding: 0;
+.container-fluid {
+    --bs-gutter-x: 0rem;
 }
 
-.navbar {
+.content {
+    position: fixed;
+    left: 200px;
     width: 100%;
+    height: 100%;
+}
+
+.content {
+    background-color: #f3f3f3;
+}
+
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: #2b2b2b;
+    color: #fff;
+    box-sizing: border-box;
+    position: fixed;
+    font-size: 20px;
+}
+.sidebar a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #2980b9;
 }
 </style>
