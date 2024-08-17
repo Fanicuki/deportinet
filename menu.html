@@ -39,6 +39,9 @@
     <div class="sidebar">
         <a href="#home">Inicio</a>
         <a href="#tutorials">Catalogo</a>
+        <div class="ayuda">
+        <a href="#ayuda">Ayuda</a>
+        </div>
     </div>
     <div class="content">
         <div>
@@ -46,14 +49,22 @@
         </div>
     </div>
 </div>
+ 
 <style>
+
 
 .container-fluid {
     --bs-gutter-x: 0rem;
 }
 
 .bg-body-tertiary {
-    background-color: #3165d4 !important;
+    background-color: #ffffff !important;
+}
+
+.navbar {
+    height: 100px;
+    box-shadow: 0 6px 4px 0 rgba(0,0,0,.3);
+    z-index: 1;
 }
 
 .navbar-icons {
@@ -66,11 +77,11 @@
 .profile {
     margin-right: 20px;
     text-decoration: none;
-    color: #fff;
+    color: #000000;
 }
 
 .navbar-brand {
-    color: #fff !important;
+    color: #ffffff !important;
     margin-left: 20px;
 }
 
@@ -82,7 +93,7 @@
 }
 
 .content {
-    background-color: #ffffff;
+    background-color: #e7e7e7;
 }
 
 .sidebar {
@@ -98,7 +109,7 @@
     display: block;
     color: #fff;
     text-decoration: none;
-    padding: 10px;
+    padding: 20px;
 }
 
 .sidebar a:hover {
