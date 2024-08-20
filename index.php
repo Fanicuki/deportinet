@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeportiNet - Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+   
     <style>
         body,
         html {
@@ -29,6 +30,25 @@
         .navbar a {
             margin-left: 20px;
             margin-right: 20px;
+            
+        }
+        
+        .navbar-brand {
+            transition: all .35s;
+        }
+
+        .navbar-brand:hover {
+            transition: all .35s;
+            transform: scale(1.20);
+        }
+
+        .shopping-cart {
+            transition: all .35s;
+        }
+
+        .shopping-cart:hover {
+            transition: all .35s;
+            transform: scale(1.20);
         }
 
         .sidebar {
@@ -296,7 +316,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
     <script>const f = document.getElementById('form');
         const q = document.getElementById('query');
-        const google = 'https://www.google.com/search?q=site%3A+';
+        const google = '';
         const site = 'pagedart.com';
   
         function submitted(event) {
@@ -307,6 +327,14 @@
         }
   
         f.addEventListener('submit', submitted);</script>
+
+        
+        <script>
+            const carousel = new bootstrap.Carousel('#carouselExample', {
+            interval: 3000, // Cambia de imagen cada 3 segundos
+            pause: 'hover' // Pausa el carrusel al pasar el mouse sobre él
+        });
+        </script>
 </body>
 
 </html>
