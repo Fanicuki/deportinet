@@ -103,11 +103,36 @@ button:hover{
 @media (max-width: 1000px) {
     .main {
         width: 750px;
-        height: 1400px;
+        height: 1000px;
     }
 
     form label {
         font-size: 5em;
+        margin: 130px;
     }
 
+    form input {
+        width: 70%;
+        height: 60px;
+        font-size: 35px;
+        margin: 30px auto;
+    }
+
+    form button {
+        width: 70%;
+        height: 60px;
+        font-size: 2em;
+    }
+
+    .signup {
+        height: 800px;
+    }
+    .signup label {
+        margin: -50px;
+        margin-bottom: 1em;
+    }
+
+    #chk:checked ~ .signup{
+        transform: translateY(-800px);
+    }
 }

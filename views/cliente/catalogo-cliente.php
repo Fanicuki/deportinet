@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeportiNet - Inicio</title>
+    <title>DeportiNet - Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./cssMain/index-main.css">
+    <link rel="stylesheet" href="index-main.css">
 </head>
 
 <body>
@@ -43,8 +43,11 @@
                     <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                 </svg></a>
-            <a class="profile" type="button" href="logeo.php">
-                Iniciar Sesión
+                <a class="profile" type="button" href="#">
+            <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                <path d="M21 22a9 9 0 1 0-18 0"></path>
+                </svg>
             </a>
         </div>
 
@@ -52,12 +55,12 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="index.php"><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <a href="index-cliente.php"><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="catalogo.php">
+        <a href="#catalogo">
             <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -79,39 +82,32 @@
     <div class="main-content">
         <div class="sub-content">
             <div class="sub-navbar">
-                <p>Menú</p>
+                <p>Catálogo</p>
             </div>
         </div>
-        <div class="carousel-container">
-            <!-- Carrusel Bootstrap -->
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/555469_v5.JPG"  alt="Imagen 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://assets.goal.com/images/v3/bltbc19a765112b199e/77d64118f93aec9c3bbe7a8066e975c3a84d5a35.jpg"  alt="Imagen 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/643339_v2.jpg"  alt="Imagen 3">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
+        
 
         <!-- Contenido adicional -->
-        <div>
-            <h2>HOLAAAA MAS GRANDEEE</h2>
-            <p>HOLAAAAAAA</p>
-        </div>
+        <div class="contenido">
+        <?php
+            include '../../db.php';
+            //back-end
+            $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
+            $result = $conn->query($query);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='producto'>";
+                    echo "<h3>" . $row['nombre'] . "</h3>";
+                    echo "<p>" . $row['descripcion'] . "</p>";
+                    echo "<p>Precio: $" . $row['precio'] . "</p>";
+                    echo "<p>Categoría: " . $row['nombre_categoria'] . "</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "No hay productos disponibles";
+            }
+        ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
@@ -129,40 +125,6 @@
   
         f.addEventListener('submit', submitted);</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
-    <script>
-        async function searchProducts() {
-    const query = document.getElementById('searchInput').value;
-
-    // Llama a la API de búsqueda
-    try {
-        const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
-        const products = await response.json();
-        displayResults(products);
-    } catch (error) {
-        console.error('Error al realizar la búsqueda:', error);
-    }
-}
-
-function displayResults(products) {
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = ''; // Limpia los resultados anteriores
-
-    // Verifica si hay productos
-    if (products.length === 0) {
-        resultsDiv.innerText = 'No se encontraron productos.';
-        return;
-    }
-
-    // Muestra cada producto en la sección de resultados
-    products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.innerHTML = `<h3>${product.nombre}</h3>
-                                <p>${product.descripcion}</p>
-                                <p>Precio: $${product.precio.toFixed(2)}</p>`;
-        resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
-    });
-}
 
     <script>
         // Inicialización del carrusel

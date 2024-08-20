@@ -57,7 +57,7 @@
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="#catalogo">
+        <a href="catalogo.php">
             <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>

@@ -19,9 +19,8 @@
         DeportiNet
     </div>
     <div class="main">
-
+		<!-- FALTA CONFIRMACIÓN DE LOGUEO -->
         <input type="checkbox" id="chk" aria-hidden="true">
-
             <div class="login">
 			    <form action="./views/cliente/index-cliente.php" method="post">
                     <label for="chk" aria-hidden="true">Iniciar Sesión</label>
@@ -32,7 +31,7 @@
             </div>
 
             <div class="signup">
-                <form action="register.php" method="post">
+                <form action="./views/cliente/index-cliente.php" method="post">
                     <label for="chk" aria-hidden="true">Crear Usuario</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Gmail" required>
                     <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
