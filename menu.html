@@ -50,10 +50,25 @@
             padding: 15px;
             text-decoration: none;
             font-size: 30px;
+            transition: all .35s;
         }
-
+        .sidebar svg {
+            display: block;
+        }
+        .sidebar a:after{
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #ff003b;
+            transition: all .35s;
+        }
+        
         .sidebar a:hover {
-            background-color: orange;
+            background-color: white;
+            color: black;
         }
 
         .main-content {
@@ -138,7 +153,7 @@
     <!-- Navbar -->
     <div class="navbar">
         <a class="navbar-brand" href="#">
-            <svg width="46" height="46" fill="none" stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg width="46" height="46" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
                 <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
                 <path d="M8.25 2.727C9.815 4.17 13.23 7.849 14.5 11.5c1.27 3.65 1.74 8.14 2.03 9.417"></path>
@@ -152,7 +167,7 @@
             DeportiNet
         </a>
         <div class="navbar-icons">
-            <a class="shopping-cart" type="button" href="#"><svg width="30" height="30" fill="none" stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <a class="shopping-cart" type="button" href="#"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -167,9 +182,27 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="#inicio">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#ayuda">Ayuda</a>
+        <a href="#inicio"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
+            <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
+            <path d="M4.5 21h15"></path>
+          </svg>Inicio</a>
+        <a href="#catalogo">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+                <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+                <path d="M4.5 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+                <path d="M10.5 12h11"></path>
+                <path d="M10.5 19h11"></path>
+                <path d="M10.5 5h11"></path>
+              </svg>Catálogo</a>
+        <a href="#ayuda">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
+                <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
+                <path d="M12.25 17v-7h-1"></path>
+                <path d="M10.5 17H14"></path>
+              </svg>Ayuda</a>
     </div>
 
     <!-- Contenedor Principal -->
@@ -206,8 +239,8 @@
 
         <!-- Contenido adicional -->
         <div>
-            <h2>Contenido principal</h2>
-            <p>Aquí puedes añadir más contenido en el contenedor principal.</p>
+            <h2>HOLAAAA MAS GRANDEEE</h2>
+            <p>HOLAAAAAAA</p>
         </div>
     </div>
 
