@@ -113,6 +113,25 @@
             <p>HOLAAAAAAA</p>
         </div>
     </div>
+    <?php
+include 'db.php';
+
+$query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<div class='producto'>";
+        echo "<h3>" . $row['nombre'] . "</h3>";
+        echo "<p>" . $row['descripcion'] . "</p>";
+        echo "<p>Precio: $" . $row['precio'] . "</p>";
+        echo "<p>Categoría: " . $row['nombre_categoria'] . "</p>";
+        echo "</div>";
+    }
+} else {
+    echo "No hay productos disponibles.";
+}
+?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
     <script>const f = document.getElementById('form');
