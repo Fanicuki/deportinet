@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeportiNet - Inicio</title>
+    <title>DeportiNet - Catálogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/index-main.css">
+    <link rel="stylesheet" href="./cssMain/index-main.css">
 </head>
 
 <body>
@@ -57,7 +57,7 @@
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="catalogo.php">
+        <a href="#catalogo">
             <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -79,8 +79,10 @@
     <div class="main-content">
         <div class="sub-content">
             <div class="sub-navbar">
-                <p>Carrito</p>
+                <p>Catálogo</p>
             </div>
+        </div>
+        
 
         <!-- Contenido adicional -->
         <div>
