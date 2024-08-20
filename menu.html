@@ -1,15 +1,143 @@
-<script>
+<!DOCTYPE html>
+<html lang="es">
 
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño Responsivo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body,
+        html {
+            width: 100%;
+            overflow-x: hidden;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        .navbar {
+            height: 80px;
+            width: 100%;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 6px 4px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
 
-<div class="container-fluid">
+        .navbar a {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            background-color: crimson;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            padding-top: 20px;
+            box-sizing: border-box;
+            box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 30px;
+        }
+
+        .sidebar a:hover {
+            background-color: orange;
+        }
+
+        .main-content {
+            margin-top: 80px;
+            margin-left: 200px;
+        }
+
+        .carousel-container {
+            background-color: crimson;
+        }
+
+        .carousel-container img {
+            width: 100%;
+            height: 700px;
+            object-fit: none;
+        }
+
+        .sub-navbar {
+            text-align: center;
+            background-color: crimson;
+            position: relative;
+            z-index: 1;
+        }
+        .sub-navbar p{
+            display:inline;
+            vertical-align: middle;
+            font-size: 24px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-top: 80px;
+                margin-left: 0;
+                padding: 0;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 2rem;
+            }
+
+            .carousel-container img {
+                object-fit:fill;
+            }
+            .carousel-inner img {
+                height: auto;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            
+            .navbar {
+                height: auto;
+            }
+
+            .carousel-inner img {
+                height: auto;
+            }
+
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+    
+    
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a class="navbar-brand" href="#">
             <svg width="46" height="46" fill="none" stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
                 <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
@@ -20,99 +148,70 @@
                 <path d="M12 2a9.972 9.972 0 0 0-7.25 3.112"></path>
                 <path d="M16 2.832a10.02 10.02 0 0 1 3.056 2.081A9.97 9.97 0 0 1 22 12a9.98 9.98 0 0 1-.63 3.5"></path>
                 <path d="M12 22a9.968 9.968 0 0 0 7.056-2.913"></path>
-              </svg>
+            </svg>
             DeportiNet
-          </a>
-            <div class="navbar-icons">
+        </a>
+        <div class="navbar-icons">
             <a class="shopping-cart" type="button" href="#"><svg width="30" height="30" fill="none" stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg></a>
+                    <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
+                    <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg></a>
             <a class="profile" type="button" href="login.svelte">
                 Iniciar Sesión
             </a>
-          
+
+        </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#ayuda">Ayuda</a>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="main-content">
+        <div class="sub-content">
+            <div class="sub-navbar">
+                <p>Menú</p>
             </div>
         </div>
-    </nav>
-    <div class="sidebar">
-        <a href="#home">Inicio</a>
-        <a href="#tutorials">Catalogo</a>
-        <div class="ayuda">
-        <a href="#ayuda">Ayuda</a>
+        <div class="carousel-container">
+            <!-- Carrusel Bootstrap -->
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/555469_v5.JPG"  alt="Imagen 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/400"  alt="Imagen 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/400"  alt="Imagen 3">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="content">
+
+        <!-- Contenido adicional -->
         <div>
-            
+            <h2>Contenido principal</h2>
+            <p>Aquí puedes añadir más contenido en el contenedor principal.</p>
         </div>
     </div>
-</div>
- 
-<style>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
+</body>
 
-.container-fluid {
-    --bs-gutter-x: 0rem;
-}
-
-.bg-body-tertiary {
-    background-color: #ffffff !important;
-}
-
-.navbar {
-    height: 100px;
-    box-shadow: 0 6px 4px 0 rgba(0,0,0,.3);
-    z-index: 1;
-}
-
-.navbar-icons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    align-items: center;
-}
-
-.profile {
-    margin-right: 20px;
-    text-decoration: none;
-    color: #000000;
-}
-
-.navbar-brand {
-    color: #000000 !important;
-    margin-left: 20px;
-}
-
-.content {
-    position: fixed;
-    left: 200px;
-    width: 100%;
-    height: 100%;
-}
-
-.content {
-    background-color: #e7e7e7;
-}
-
-.sidebar {
-    width: 200px;
-    height: 100%;
-    background-color: #3165d4e0;
-    color: #fff;
-    box-sizing: border-box;
-    position: fixed;
-    font-size: 20px;
-}
-.sidebar a {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    padding: 20px;
-}
-
-.sidebar a:hover {
-    background-color: orange;
-}
-</style>
+</html>
