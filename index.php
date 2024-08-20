@@ -107,7 +107,6 @@
             </div>
         </div>
 
-        <!-- Contenido adicional -->
         <div>
             <h2>HOLAAAA MAS GRANDEEE</h2>
             <p>HOLAAAAAAA</p>
@@ -115,7 +114,7 @@
     </div>
     <?php
 include 'db.php';
-
+//back-end
 $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
 $result = $conn->query($query);
 
@@ -129,7 +128,7 @@ if ($result->num_rows > 0) {
         echo "</div>";
     }
 } else {
-    echo "No hay productos disponibles.";
+    echo "No hay productos disponibles";
 }
 ?>
 
