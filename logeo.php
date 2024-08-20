@@ -10,7 +10,7 @@
 
 <div class="contenedor">
     <div class="logo-container">
-        <svg width="65" height="65" fill="none" stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg width="65" height="65" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
             <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
             <path d="M8.25 2.727C9.815 4.17 13.23 7.849 14.5 11.5c1.27 3.65 1.74 8.14 2.03 9.417"></path>
@@ -28,21 +28,21 @@
         <input type="checkbox" id="chk" aria-hidden="true">
 
             <div class="login">
-                <form>
+			    <form action="./views/cliente/index-cliente.php" method="post">
                     <label for="chk" aria-hidden="true">Iniciar Sesión</label>
-                    <input type="email" name="email" placeholder="Usuario" required="">
-                    <input type="password" name="pswd" placeholder="Contraseña" required="">
-                    <button>Entrar</button>
+                    <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
+                    <button type="submit" >Entrar</button>
                 </form>
             </div>
 
             <div class="signup">
-                <form>
+                <form action="register.php" method="post">
                     <label for="chk" aria-hidden="true">Crear Usuario</label>
-                    <input type="text" name="txt" placeholder="Usuario" required="">
-                    <input type="email" name="email" placeholder="Email" required="">
-                    <input type="password" name="pswd" placeholder="Contraseña" required="">
-                    <button>Registrarse</button>
+                    <input type="text" id="nombre" name="nombre" placeholder="Gmail" required>
+                    <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
+                    <button type="submit">Registrarse</button>
                 </form>
             </div>
     </div>
@@ -67,15 +67,17 @@ body{
 	align-items: center;
 	min-height: 100vh;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #162c47, #436096, #242c3e);
+	background-image: url(https://images7.alphacoders.com/344/344223.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 .main{
 	width: 350px;
 	height: 500px;
-	background: #3165d4;
+	background: crimson;
 	overflow: hidden;
 	border-radius: 10px;
-	box-shadow: 5px 20px 50px #000;
+	box-shadow: 5px 20px 50px #4d4d4d;
 }
 
 #chk{
@@ -114,8 +116,8 @@ button{
 	margin: 10px auto;
 	justify-content: center;
 	display: block;
-	color: #fff;
-	background: orange;
+	color: crimson;
+	background: white;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 30px;
@@ -126,7 +128,8 @@ button{
 	cursor: pointer;
 }
 button:hover{
-	background: rgb(179, 116, 0);
+	background:dimgrey;
+	color: white;
 }
 .signup{
 	height: 460px;
@@ -136,7 +139,7 @@ button:hover{
 	transition: .8s ease-in-out;
 }
 .signup label{
-	color: orange;
+	color: crimson;
 	transform: scale(.6);
 }
 
