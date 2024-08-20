@@ -129,6 +129,40 @@
   
         f.addEventListener('submit', submitted);</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script>
+        async function searchProducts() {
+    const query = document.getElementById('searchInput').value;
+
+    // Llama a la API de búsqueda
+    try {
+        const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+        const products = await response.json();
+        displayResults(products);
+    } catch (error) {
+        console.error('Error al realizar la búsqueda:', error);
+    }
+}
+
+function displayResults(products) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = ''; // Limpia los resultados anteriores
+
+    // Verifica si hay productos
+    if (products.length === 0) {
+        resultsDiv.innerText = 'No se encontraron productos.';
+        return;
+    }
+
+    // Muestra cada producto en la sección de resultados
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `<h3>${product.nombre}</h3>
+                                <p>${product.descripcion}</p>
+                                <p>Precio: $${product.precio.toFixed(2)}</p>`;
+        resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
+    });
+}
 
     <script>
         // Inicialización del carrusel
