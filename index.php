@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeportiNet - Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   
+    
     <style>
         body,
         html {
@@ -327,14 +327,15 @@
         }
   
         f.addEventListener('submit', submitted);</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        
-        <script>
-            const carousel = new bootstrap.Carousel('#carouselExample', {
+    <script>
+        // Inicialización del carrusel
+        const carousel = new bootstrap.Carousel('#carouselExample', {
             interval: 3000, // Cambia de imagen cada 3 segundos
             pause: 'hover' // Pausa el carrusel al pasar el mouse sobre él
         });
-        </script>
+    </script>
 </body>
 
 </html>
