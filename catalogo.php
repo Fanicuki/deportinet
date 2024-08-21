@@ -51,29 +51,30 @@
     </div>
 
     <!-- Sidebar -->
-    <div class="sidebar">
-        <a href="index.php"><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
-            <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
-            <path d="M4.5 21h15"></path>
-          </svg>Inicio</a>
-        <a href="#catalogo">
-            <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
-                <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
-                <path d="M4.5 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
-                <path d="M10.5 12h11"></path>
-                <path d="M10.5 19h11"></path>
-                <path d="M10.5 5h11"></path>
-              </svg>Catálogo</a>
-        <a href="#ayuda">
-            <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
-                <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
-                <path d="M12.25 17v-7h-1"></path>
-                <path d="M10.5 17H14"></path>
-              </svg>Ayuda</a>
-    </div>
+    <!-- Sidebar -->
+<div class="sidebar">
+    <a href="index.php"><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
+        <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
+        <path d="M4.5 21h15"></path>
+      </svg>Inicio</a>
+    <a href="#catalogo">
+        <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+            <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+            <path d="M4.5 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+            <path d="M10.5 12h11"></path>
+            <path d="M10.5 19h11"></path>
+            <path d="M10.5 5h11"></path>
+          </svg>Catálogo</a>
+    <a href="#ayuda">
+        <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
+            <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
+            <path d="M12.25 17v-7h-1"></path>
+            <path d="M10.5 17H14"></path>
+          </svg>Ayuda</a>
+</div>
 
     <!-- Contenedor Principal -->
     <div class="main-content">
@@ -107,20 +108,6 @@
         ?>
         </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
-    <script>const f = document.getElementById('form');
-        const q = document.getElementById('query');
-        const google = '';
-        const site = 'pagedart.com';
-  
-        function submitted(event) {
-          event.preventDefault();
-          const url = google + site + '+' + q.value;
-          const win = window.open(url, '_blank');
-          win.focus();
-        }
-  
-        f.addEventListener('submit', submitted);</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
@@ -130,6 +117,40 @@
             pause: 'hover' // Pausa el carrusel al pasar el mouse sobre él
         });
     </script>
+    <script>
+        async function searchProducts() {
+    const query = document.getElementById('searchInput').value;
+
+    // Llama a la API de búsqueda
+    try {
+        const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+        const products = await response.json();
+        displayResults(products);
+    } catch (error) {
+        console.error('Error al realizar la búsqueda:', error);
+    }
+}
+
+function displayResults(products) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = ''; // Limpia los resultados anteriores
+
+    // Verifica si hay productos
+    if (products.length === 0) {
+        resultsDiv.innerText = 'No se encontraron productos.';
+        return;
+    }
+
+    // Muestra cada producto en la sección de resultados
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `<h3>${product.nombre}</h3>
+                                <p>${product.descripcion}</p>
+                                <p>Precio: $${product.precio.toFixed(2)}</p>`;
+        resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
+    });
+}
+
 </body>
 
 </html>
