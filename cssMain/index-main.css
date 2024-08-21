@@ -59,13 +59,14 @@ html {
 }
 
 .sidebar a {
-    display: block;
+    display: flex;
     color: white;
     padding: 10px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     margin-top: 16px;
     transition: all .35s;
+    gap: 10px;
 }
 .sidebar svg {
     display: block;
@@ -115,6 +116,24 @@ html {
     color: white;
 }
 
+.list-sub-navbar {
+    background-color: white;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.3);
+    display: flex;  
+    gap: 50px;
+    padding: 5px 15px;
+    align-items: baseline;
+}
+.list-sub-navbar p{
+    font-size: 24px;
+    color: black;
+    margin-bottom: 0;
+    width: 150px;
+}
+
 form {
     background-color: crimson;
     width: 300px;
@@ -159,6 +178,8 @@ form button {
     width: 150px;
     font-weight: bold;
 }
+
+
 @media (max-width: 768px) {
 
 

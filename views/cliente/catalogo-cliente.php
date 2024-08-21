@@ -38,7 +38,7 @@
               </svg></button>
           </form>
         <div class="navbar-icons">
-            <a class="shopping-cart" type="button" href="#"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <a class="shopping-cart" type="button" href="carrito.php"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -55,13 +55,13 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="index-cliente.php"><svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <a href="index-cliente.php"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
         <a href="#catalogo">
-            <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -70,7 +70,7 @@
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
         <a href="#ayuda">
-            <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
                 <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
                 <path d="M12.25 17v-7h-1"></path>
@@ -84,31 +84,42 @@
             <div class="sub-navbar">
                 <p>Catálogo</p>
             </div>
+            <div class="list-sub-navbar">
+                <p>Producto</p>
+                <p>Descripción</p>
+                <p>Precio</p>
+                <p>Categoría</p>
+            </div>
         </div>
         
 
         <!-- Contenido adicional -->
         <div class="contenido">
-        <?php
-            include '../../db.php';
-            //back-end
-            $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
-            $result = $conn->query($query);
+            <?php
+                include '../../db.php';
+                // back-end
+                $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
+                $result = $conn->query($query);
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='producto'>";
-                    echo "<h3>" . $row['nombre'] . "</h3>";
-                    echo "<p>" . $row['descripcion'] . "</p>";
-                    echo "<p>Precio: $" . $row['precio'] . "</p>";
-                    echo "<p>Categoría: " . $row['nombre_categoria'] . "</p>";
-                    echo "</div>";
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<div class='producto'>";
+                        echo "<h3>" . $row['nombre'] . "</h3>";
+                        echo "<p>" . $row['descripcion'] . "</p>";
+                        echo "<p>$" . $row['precio'] . "</p>";
+                        echo "<p>" . $row['nombre_categoria'] . "</p>";
+                        echo "<form class='add-cart' method='POST' action='carrito.php'>";
+                        echo "<input type='hidden' name='product_id' value='" . $row['id_producto'] . "'>";
+                        echo "<button type='submit' class='btn btn-primary'>Añadir al Carrito</button>";
+                        echo "</form>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "No hay productos disponibles";
                 }
-            } else {
-                echo "No hay productos disponibles";
-            }
-        ?>
-    </div>
+            ?>
+        </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
     <script>const f = document.getElementById('form');
