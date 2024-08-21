@@ -154,3 +154,37 @@ function displayResults(products) {
 </body>
 
 </html>
+
+// <script>
+//         async function searchProducts() {
+//     const query = document.getElementById('searchInput').value;
+
+//     // Llama a la API de búsqueda
+//     try {
+//         const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+//         const products = await response.json();
+//         displayResults(products);
+//     } catch (error) {
+//         console.error('Error al realizar la búsqueda:', error);
+//     }
+// }
+
+// function displayResults(products) {
+//     const resultsDiv = document.getElementById('results');
+//     resultsDiv.innerHTML = ''; // Limpia los resultados anteriores
+
+//     // Verifica si hay productos
+//     if (products.length === 0) {
+//         resultsDiv.innerText = 'No se encontraron productos.';
+//         return;
+//     }
+
+//     // Muestra cada producto en la sección de resultados
+//     products.forEach(product => {
+//         const productDiv = document.createElement('div');
+//         productDiv.innerHTML = `<h3>${product.nombre}</h3>
+//                                 <p>${product.descripcion}</p>
+//                                 <p>Precio: $${product.precio.toFixed(2)}</p>`;
+//         resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
+//     });
+// }
