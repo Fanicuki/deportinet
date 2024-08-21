@@ -137,16 +137,40 @@ html {
     display: flex;  
     gap: 50px;
     padding: 15px;
-    align-items: baseline;
+    align-items: center;
     border-bottom: solid 1px #b6b6b6;
 }
 .contenido h3 {
     width: 150px;
+    margin: 0;
 }
 .contenido p {
     width: 150px;
     font-weight: bold;
+    margin: 0;
 }
+
+.add-cart{
+    width: 0;
+    height: 100%;
+    align-items: center;
+}
+
+.add-cart button {
+    width: 500px;
+    height: auto;
+    background-color: transparent;
+    border-color: #ff003b;
+    margin: 0;
+}
+
+.add-cart button:hover {
+    background-color: white;
+    border-color: crimson;
+}
+
+
+
 @media (max-width: 768px) {
 
 

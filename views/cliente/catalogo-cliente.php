@@ -69,13 +69,7 @@
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
-        <a href="#ayuda">
-            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
-                <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
-                <path d="M12.25 17v-7h-1"></path>
-                <path d="M10.5 17H14"></path>
-              </svg>Ayuda</a>
+        
     </div>
 
     <!-- Contenedor Principal -->
@@ -110,7 +104,13 @@
                         echo "<p>" . $row['nombre_categoria'] . "</p>";
                         echo "<form class='add-cart' method='POST' action='carrito.php'>";
                         echo "<input type='hidden' name='product_id' value='" . $row['id_producto'] . "'>";
-                        echo "<button type='submit' class='btn btn-primary'>Añadir al Carrito</button>";
+                        echo "<button type='submit' class='btn btn-primary'><svg width='30' height='30' fill='none' stroke='crimson' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                                    <path d='M15.586 17.586a2 2 0 1 1 2.828 2.828 2 2 0 0 1-2.828-2.828Z'></path>
+                                    <path d='M8.414 20.414a2 2 0 1 0-2.828-2.828 2 2 0 0 0 2.828 2.828Z'></path>
+                                    <path d='m7 13-2.293 2.293c-.63.63-.184 1.707.707 1.707H17'></path>
+                                    <path d='M5.4 5H21l-4 8H7L5.4 5Z'></path>
+                                    <path d='M3 3h2l.4 2'></path>
+                                </svg></button>";
                         echo "</form>";
                         echo "</div>";
                     }
