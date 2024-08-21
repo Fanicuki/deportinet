@@ -126,6 +126,7 @@ html {
 }
 .contenido p {
     width: 150px;
+    font-weight: bold;
 }
 @media (max-width: 768px) {
 
