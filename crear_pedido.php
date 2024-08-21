@@ -31,13 +31,13 @@ try {
     }
 
     $stmt = $conn->prepare("UPDATE Pedidos SET total = ? WHERE id_pedido = ?");
-    $stmt->bind_param("i", $total, $id_pedido);
+    $stmt->bind_param("di", $total, $id_pedido);
     $stmt->execute();
 
     $conn->commit();
-    echo "Pedido creado";
+    echo "Pedido creado con éxito.";
 } catch (Exception $e) {
     $conn->rollback();
-    echo "Error" . $e->getMessage();
+    echo "Error al crear el pedido: " . $e->getMessage();
 }
 ?>
