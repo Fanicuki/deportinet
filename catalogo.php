@@ -150,7 +150,7 @@ function displayResults(products) {
         resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
     });
 }
-
+</scri
 </body>
 
 </html>

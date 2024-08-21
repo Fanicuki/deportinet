@@ -34,6 +34,11 @@
                 </svg>
             </button>
         </form>
+
+        
+
+
+
         <div class="navbar-icons">
             <a class="shopping-cart" type="button" href="#"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
@@ -99,6 +104,9 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <div id="catalog">
+            
+        </div>
         </div>
 
         <!-- Contenido adicional -->
@@ -114,5 +122,22 @@
             return false; // Previene el envío del formulario
         }
     </script>
+    <script>
+function searchProducts(event) {
+    event.preventDefault();
+    const query = document.getElementById('query').value;
+
+    // Realiza la solicitud GET con AJAX
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `catalogo.php?q=${query}`, true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Actualiza el contenido del catálogo
+            document.getElementById('catalog').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
+}
+</script>
 </body>
 </html>
