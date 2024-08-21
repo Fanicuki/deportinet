@@ -1,11 +1,6 @@
-<script>
-
-</script>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="slide navbar style.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="./cssMain/logeo.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <div class="contenedor">
@@ -24,9 +19,8 @@
         DeportiNet
     </div>
     <div class="main">
-
+		<!-- FALTA CONFIRMACIÓN DE LOGUEO -->
         <input type="checkbox" id="chk" aria-hidden="true">
-
             <div class="login">
 			    <form action="./views/cliente/index-cliente.php" method="post">
                     <label for="chk" aria-hidden="true">Iniciar Sesión</label>
@@ -37,7 +31,7 @@
             </div>
 
             <div class="signup">
-                <form action="register.php" method="post">
+                <form action="./views/cliente/index-cliente.php" method="post">
                     <label for="chk" aria-hidden="true">Crear Usuario</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Gmail" required>
                     <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
@@ -47,111 +41,3 @@
             </div>
     </div>
 </div>
-
-
-<style>
-
-.logo-container {
-    position: relative;
-    color: white;
-    font-size: 50px;
-    z-index: 1;
-	margin-bottom: 40px;
-}
-
-body{
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	font-family: 'Jost', sans-serif;
-	background-image: url(https://images7.alphacoders.com/344/344223.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-.main{
-	width: 350px;
-	height: 500px;
-	background: crimson;
-	overflow: hidden;
-	border-radius: 10px;
-	box-shadow: 5px 20px 50px #4d4d4d;
-}
-
-#chk{
-	display: none;
-}
-.login{
-	position: relative;
-	width:100%;
-	height: 100%;
-}
-label{
-	color: #fff;
-	font-size: 2.3em;
-	justify-content: center;
-	display: flex;
-	margin: 50px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .5s ease-in-out;
-}
-input{
-	width: 60%;
-	height: 10px;
-	background: #e0dede;
-	justify-content: center;
-	display: flex;
-	margin: 20px auto;
-	padding: 12px;
-	border: none;
-	outline: none;
-	border-radius: 5px;
-}
-button{
-	width: 60%;
-	height: 40px;
-	margin: 10px auto;
-	justify-content: center;
-	display: block;
-	color: crimson;
-	background: white;
-	font-size: 1em;
-	font-weight: bold;
-	margin-top: 30px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
-	cursor: pointer;
-}
-button:hover{
-	background:dimgrey;
-	color: white;
-}
-.signup{
-	height: 460px;
-	background: #eee;
-	border-radius: 60% / 10%;
-	transform: translateY(-180px);
-	transition: .8s ease-in-out;
-}
-.signup label{
-	color: crimson;
-	transform: scale(.6);
-}
-
-#chk:checked ~ .signup{
-	transform: translateY(-500px);
-}
-#chk:checked ~ .signup label{
-	transform: scale(1);	
-}
-#chk:checked ~ .login label{
-	transform: scale(.6);
-}
-
-
-</style>

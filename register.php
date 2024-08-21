@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrarse</title>
-</head>
-<body>
-    <h2>Registrarse</h2>
-    <form action="register.php" method="post">
-        <label for="nombre">gmail:</label>
-        <input type="text" id="nombre" name="nombre" required><br><br>
-        <label for="usuario">Usuario:</label>
-        <input type="text" id="usuario" name="usuario" required><br><br>
-        <label for="contraseña">Contraseña:</label>
-        <input type="password" id="contraseña" name="contraseña" required><br><br>
-        <button type="submit">Registrarse</button>
-    </form>
-</body>
-</html>
-
 <?php
 include 'db.php';
 

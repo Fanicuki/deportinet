@@ -92,15 +92,12 @@ html {
 }
 
 .carousel-container {
-    width: 45%;
     background-color: crimson;
 }
 
 .carousel-container img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 100%;
+    height: 70%;
     object-fit: fill;
 }
 
@@ -118,6 +115,18 @@ html {
     color: white;
 }
 
+.contenido .producto {
+    display: flex;  
+    gap: 50px;
+    padding: 15px;
+    align-items: baseline;
+}
+.contenido h3 {
+    width: 150px;
+}
+.contenido p {
+    width: 150px;
+}
 @media (max-width: 768px) {
 
 
@@ -127,9 +136,10 @@ html {
         position: relative;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
         z-index: 2;
+        top: 50px;
     }
     .main-content {
-        margin-top: 80px;
+        margin-top: 50px;
         margin-left: 0;
         padding: 0;
     }
@@ -156,7 +166,7 @@ html {
     
 }
 
-@media (max-width: 480px) {
+@media (max-width: 690px) {
     
     .navbar {
         height: auto;
@@ -164,6 +174,14 @@ html {
 
     .navbar-brand {
         display: inline;
+    }
+
+    .sidebar {
+        top: 100px;
+    }
+
+    .main-content {
+        margin-top: 100px;
     }
 
     .navbar-icons {
