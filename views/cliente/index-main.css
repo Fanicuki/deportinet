@@ -119,6 +119,13 @@ html {
     display: flex;  
     gap: 50px;
     padding: 15px;
+    align-items: baseline;
+}
+.contenido h3 {
+    width: 150px;
+}
+.contenido p {
+    width: 150px;
 }
 @media (max-width: 768px) {
 
