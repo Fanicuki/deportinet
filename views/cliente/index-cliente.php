@@ -112,8 +112,6 @@
 
         <!-- Contenido adicional -->
         <div>
-            <h2>HOLAAAA MAS GRANDEEE</h2>
-            <p>HOLAAAAAAA</p>
         </div>
     </div>
 

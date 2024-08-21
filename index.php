@@ -52,7 +52,7 @@
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="#catalogo">
+        <a href="catalogo.php">
             <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -70,46 +70,41 @@
               </svg>Ayuda</a>
     </div>
     <!-- Contenedor Principal -->
-    <div class="main-content">
+        <div class="main-content">
         <div class="sub-content">
             <div class="sub-navbar">
-                <p>Catálogo</p>
+                <p>Menú</p>
             </div>
         </div>
-        <!-- Contenido adicional -->
-        <div class="contenido">
-        <?php
-            include 'db.php';
-
-            // Obtener el término de búsqueda de la URL si existe
-            $searchTerm = isset($_GET['q']) ? $_GET['q'] : '';
-
-            // Modificar la consulta SQL para incluir la búsqueda
-            $query = "SELECT Productos.*, Categorias.nombre_categoria 
-                      FROM Productos 
-                      JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
-
-            // Si hay un término de búsqueda, agregar la cláusula WHERE
-            if (!empty($searchTerm)) {
-                $searchTerm = $conn->real_escape_string($searchTerm); // Escapar el término de búsqueda
-                $query .= " WHERE Productos.nombre LIKE '%$searchTerm%'"; // Filtrar por nombre del producto
-            }
-
-            $result = $conn->query($query);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='producto'>";
-                    echo "<h3>" . $row['nombre'] . "</h3>";
-                    echo "<p>" . $row['descripcion'] . "</p>";
-                    echo "<p>Precio: $" . $row['precio'] . "</p>";
-                    echo "<p>Categoría: " . $row['nombre_categoria'] . "</p>";
-                    echo "</div>";
-                }
-            } else {
-                echo "No se encontraron productos que coincidan con tu búsqueda.";
-            }
-        ?>
+        <div class="carousel-container">
+            <!-- Carrusel Bootstrap -->
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/555469_v5.JPG"  alt="Imagen 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://assets.goal.com/images/v3/bltbc19a765112b199e/77d64118f93aec9c3bbe7a8066e975c3a84d5a35.jpg"  alt="Imagen 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/643339_v2.jpg"  alt="Imagen 3">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
+
+        <!-- Contenido adicional -->
+        <div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         function searchProducts(event) {
