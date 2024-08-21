@@ -120,6 +120,7 @@ html {
     gap: 50px;
     padding: 15px;
     align-items: baseline;
+    border-bottom: solid 1px #b6b6b6;
 }
 .contenido h3 {
     width: 150px;
