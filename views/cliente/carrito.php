@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Contenedor Principal -->
     <div class="main-content">
         <div class="sub-content">
-            <div class="sub-navbar">
+            <div class="sub-navbar" style="margin-top: -48px;">
                 <p>Carrito</p>
             </div>
 
