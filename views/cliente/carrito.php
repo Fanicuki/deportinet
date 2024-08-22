@@ -131,9 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result = $conn->query($query);
 
                 if ($result->num_rows > 0) {
-                    echo '<ul class="cart-list">';
+                    echo '<ul class="contenido">';
                     while ($row = $result->fetch_assoc()) {
-                        echo "<li class='cart-container'>Nombre: " . $row['nombre'] . "<br> 
+                        echo "<li class='producto'>Nombre: " . $row['nombre'] . "<br> 
                             Precio: $" . $row['precio'] . "<br> 
                             Categoría: " . $row['nombre_categoria'] . "<br>";
 

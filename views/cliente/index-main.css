@@ -108,7 +108,6 @@ html {
     width: 100%;
     z-index: 1;
     box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.3);
-    top: -48px;
 }
 .sub-navbar p{
     display:inline;
@@ -190,19 +189,9 @@ html {
     height: auto;
 }
 
-.cart-list {
-    margin-top: -48px;
-}
-
-
-
 .cart-list ol, ul {
    padding-left: 0;
 }
-.non-product {
-    margin-top: -48px;
-}
-
 @media (max-width: 768px) {
 
 
