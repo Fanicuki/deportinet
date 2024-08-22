@@ -111,10 +111,12 @@
                             echo "<div class='productos-container'>";
                             while ($row = $result->fetch_assoc()) {
                                 echo "<div class='producto'>";
-                                echo "<h3>" . $row['nombre'] . "</h3>";
-                                echo "<p>" . $row['descripcion'] . "</p>";
-                                echo "<p class='precio'>$" . $row['precio'] . "</p>";
-                                echo "<p class='categoria'>" . $row['nombre_categoria'] . "</p>";
+                                // Output the image
+                                echo "<img src='" . ($row['img']) . "' alt='" . htmlspecialchars($row['nombre']) . "' class='producto-img'>";
+                                echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
+                                echo "<p>" . htmlspecialchars($row['descripcion']) . "</p>";
+                                echo "<p class='precio'>$" . htmlspecialchars($row['precio']) . "</p>";
+                                echo "<p class='categoria'>" . htmlspecialchars($row['nombre_categoria']) . "</p>";
                                 echo "<button class='comprar-btn'>Comprar</button>";
                                 echo "</div>";
                             }
@@ -123,6 +125,7 @@
                             echo "No hay productos disponibles";
                         }
                     ?>
+
 
 
                     </div>
@@ -174,21 +177,6 @@
         };
         xhr.send();
     }
-    </script>
-    <script>
-        function updateCartCount() {
-            fetch('obtener_cantidad_carrito.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('cart-count').textContent = data;
-                });
-        }
-
-        // Actualiza el contador cada 5 segundos
-        setInterval(updateCartCount, 5000);
-
-        // Actualiza el contador cuando se carga la página
-        window.onload = updateCartCount;
     </script>
 
 </body>

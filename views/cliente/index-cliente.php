@@ -141,7 +141,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                         </div>
                     </div>
 
-                    <h1>hola</h1>
+                    <div class="latest-products">
+                <h1 style="position: absolute">Últimos productos</h1>
+                    <div class="product-list">
+                    <?php
+                        include '../../db.php';
+                        // back-end
+                        $query = "SELECT Productos.*, Categorias.nombre_categoria 
+                                FROM Productos 
+                                JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
+                                ORDER BY Productos.id_producto DESC 
+                                LIMIT 5";
+                        
+                        $result = $conn->query($query);
+
+                        if ($result->num_rows > 0) {
+                            echo "<div class='productos-container'>";
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<div class='producto'>";
+                                // Output the image
+                                echo "<img src='" . ($row['img']) . "' alt='" . htmlspecialchars($row['nombre']) . "' class='producto-img'>";
+                                echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
+                                echo "<p>" . htmlspecialchars($row['descripcion']) . "</p>";
+                                echo "<p class='precio'>$" . htmlspecialchars($row['precio']) . "</p>";
+                                echo "<p class='categoria'>" . htmlspecialchars($row['nombre_categoria']) . "</p>";
+                                echo "<button class='comprar-btn'>Comprar</button>";
+                                echo "</div>";
+                            }
+                            echo "</div>";
+                        } else {
+                            echo "No hay productos disponibles";
+                        }
+                    ?>
+
+
+
+                    </div>
 
                 </div>
             <div>
@@ -182,4 +217,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
     </script>
 
 </body>
+<style>
+.productos-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+}
+
+.producto {
+    display: grid;
+    background-color: #f8f8f8;
+    border: 2px solid crimson;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.producto:hover {
+    transform: scale(1.05);
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.producto h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.producto p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.producto .precio {
+    font-size: 16px;
+    color: #e60000;
+    font-weight: bold;
+}
+
+.producto .categoria {
+    font-size: 12px;
+    color: #999;
+}
+
+.comprar-btn {
+    background-color: crimson;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.comprar-btn:hover {
+    background-color: rgb(145, 14, 40);
+}
+
+</style>
 </html>

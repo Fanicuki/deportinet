@@ -120,6 +120,7 @@ html {
 
 .carousel-container {
     width: 470px;
+    min-width: 470px;
     margin: 0;
     background-color: crimson;
     z-index: 0;
@@ -168,63 +169,99 @@ html {
     display: flex;  
     gap: 50px;
     padding: 15px;
-    align-items: center;
+    align-items: baseline;
     border-bottom: solid 1px #b6b6b6;
 }
 .contenido h3 {
     width: 150px;
-    margin: 0;
 }
 .contenido p {
     width: 150px;
     font-weight: bold;
-    margin: 0;
+}
+.position-relative {
+    position: relative;
 }
 
-.cart-container{
-    display: flex;  
-    gap: 50px;
-    padding: 15px;
-    align-items: center;
-    border-bottom: solid 1px #b6b6b6;
+.position-absolute {
+    position: absolute;
 }
 
-.add-cart{
-    width: 0;
-    height: 100%;
-    align-items: center;
+.badge {
+    padding: 0.5em 0.7em;
+    font-size: 0.75em;
+    color: white;
+    background-color: crimson;
+    border-radius: 50%;
 }
 
-.add-cart button {
-    width: 500px;
-    height: auto;
-    background-color: transparent;
-    border-color: #ff003b;
-    margin: 0;
-}
-
-.add-cart button:hover {
-    background-color: white;
-    border-color: crimson;
-}
-
-.delete-btn {
-    display: flex;
-    width: 0;
-    height: 100%;
-    align-items: center;
-}
-
-.delete-btn button{
-    width: 500px;
-    height: auto;
-}
-
-.cart-list ol, ul {
-   padding-left: 0;
-}
 .content {
     display: flex;
+}
+
+.latest-products {
+    display: inline-grid;
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 100%;
+}
+
+.product-list {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+.product-item {
+    min-width: 150px;
+    margin-right: 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.product-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.categories {
+    margin-top: 40px;
+    padding: 10px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.category-button {
+    background-color: crimson;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.category-button:hover {
+    transform: scale(1.1);
+}
+
+.category-button svg {
+    margin-right: 10px;
+}
+
+.category-button span {
+    font-size: 16px;
 }
 @media (max-width: 768px) {
 

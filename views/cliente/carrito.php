@@ -176,10 +176,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <p>Descripción: " . $row['descripcion'] . "</p>
                                             <p>Precio: $" . $row['precio'] . "</p>
                                             <p>Categoría: " . $row['nombre_categoria'] . "</p>
+                                            <form method='POST' action='procesar_pedido.php'>
+                                                <input type='hidden' name='productos[0][id]' value='" . $row['id_producto'] . "'>
+                                                <input type='hidden' name='productos[0][cantidad]' value='1'>
+                                                <input type='hidden' name='productos[0][precio]' value='" . $row['precio'] . "'>
+                                                <button type='submit' class='btn btn-primary'>Comprar</button>
+                                            </form>
                                         </div>
                                         <div class='modal-footer'>
                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                            <button type='button' class='btn btn-primary'>Comprar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -195,6 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo '<p class="non-product">Tu carrito está vacío.</p>';
             }
         ?>
+
 
         </div>
     </div>
