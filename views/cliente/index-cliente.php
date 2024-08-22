@@ -102,42 +102,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
+        <div class="diagonal-block block1"></div>
+        <div class="diagonal-block block2"></div>
+        <div class="diagonal-block block3"></div>
     </div>
 
     <!-- Contenedor Principal -->
     <div class="main-content">
-        <div class="sub-content">
-            <div class="sub-navbar">
-                <p>Menú</p>
-            </div>
-        </div>
-        <div class="carousel-container">
-            <!-- Carrusel Bootstrap -->
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/555469_v5.JPG"  alt="Imagen 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://assets.goal.com/images/v3/bltbc19a765112b199e/77d64118f93aec9c3bbe7a8066e975c3a84d5a35.jpg"  alt="Imagen 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/643339_v2.jpg"  alt="Imagen 3">
-                    </div>
+            <div class="sub-content">
+                <div class="sub-navbar">
+                    <p>Menú</p>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-        </div>
-        </div>
-    </div>
+            </div>
+            <div class="content">
+                <div class="carousel-container">
+                    <!-- Carrusel  -->
+                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://i.pinimg.com/736x/fc/2d/3e/fc2d3e2f6283e20b536dc4864971e272.jpg"  alt="Imagen 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://i.pinimg.com/736x/51/f8/43/51f8430fbf1b5d19bacd9d858c38430d.jpg"  alt="Imagen 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://i.pinimg.com/564x/6f/39/0c/6f390c3851bf5d79a66724d5e01167eb.jpg"  alt="Imagen 3">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        
+                        </div>
+                    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
+                    <h1>hola</h1>
+
+                </div>
+            <div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+    function searchProducts(event) {
+        event.preventDefault();
+        const query = document.getElementById('query').value;
+
+        // Realiza la solicitud GET con AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `catalogo.php?q=${query}`, true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Actualiza el contenido del catálogo
+                document.getElementById('catalog').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+    </script>
     <script>
         function updateCartCount() {
             fetch('obtener_cantidad_carrito.php')
@@ -153,6 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
         // Actualiza el contador cuando se carga la página
         window.onload = updateCartCount;
     </script>
-</body>
 
+</body>
 </html>

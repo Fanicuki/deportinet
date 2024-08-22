@@ -56,6 +56,7 @@ html {
     box-sizing: border-box;
     box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.3);
     z-index: 1;
+    overflow: hidden;
 }
 
 .sidebar a {
@@ -86,20 +87,50 @@ html {
     background-color: white;
     color: black;
 }
+.diagonal-block {
+    position: absolute;
+    width: 200%;
+    height: 50px;
+    transform: rotate(-45deg);
+    z-index: -1000;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+}
 
+.block1 {
+    background-color: rgb(145, 14, 40); /* Color de la primera línea */
+    bottom: 120px;
+    left: -50%;
+}
+
+.block2 {
+    background-color: rgb(145, 14, 40); /* Color de la segunda línea */
+    bottom: 220px;
+    left: -50%;
+}
+
+.block3 {
+    background-color: rgb(145, 14, 40); /* Color de la tercera línea */
+    bottom: 330px;
+    left: -50%;
+}
 .main-content {
     margin-top: 80px;
     margin-left: 150px;
 }
 
 .carousel-container {
+    width: 470px;
+    margin: 0;
     background-color: crimson;
+    z-index: 0;
 }
 
 .carousel-container img {
+    display: block;
     width: 100%;
-    height: 70%;
+    height: 100%;
     object-fit: fill;
+    margin: 0 auto
 }
 
 .sub-navbar {
@@ -192,6 +223,9 @@ html {
 .cart-list ol, ul {
    padding-left: 0;
 }
+.content {
+    display: flex;
+}
 @media (max-width: 768px) {
 
 
@@ -217,8 +251,11 @@ html {
         padding: 2rem;
     }
 
+    .carousel-container {
+        width: 100%;
+    }
     .carousel-container img {
-        object-fit:fill;
+        object-fit:cover;
         width: 100%;
     }
     .carousel-inner img {
@@ -228,7 +265,10 @@ html {
     .navbar {
         flex-direction: column;
     }
-    
+    .content {
+        display: block;
+        padding: 0;
+    }
 }
 
 @media (max-width: 690px) {

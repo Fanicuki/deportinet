@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Usuario o contraseña incorrectos.";
         }
     } else {
-        echo "Usuario no encontrado.";
+        echo "Usuario o contraseña incorrectos.";
     }
 
     $stmt->close();
