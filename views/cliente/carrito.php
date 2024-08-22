@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeportiNet - Carrito</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="index-main.css">
 </head>
 
@@ -140,8 +141,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Botón para eliminar el producto
                         echo "<form method='POST' action='carrito.php' class='delete-btn'>
                                 <input type='hidden' name='remove_product_id' value='" . $row['id_producto'] . "'>
-                                <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
-                                </form>";
+                                <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>";
+
+                        // Botón para abrir el modal
+                        echo "<button type='button' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#modalProducto" . $row['id_producto'] . "'>Comprar</button>";
+
+                        echo "</form>";
+
+                        // Modal con la información del producto y botón "Comprar"
+                        echo "<div class='modal fade' id='modalProducto" . $row['id_producto'] . "' tabindex='-1' aria-labelledby='modalLabel" . $row['id_producto'] . "' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <h5 class='modal-title' id='modalLabel" . $row['id_producto'] . "'>" . $row['nombre'] . "</h5>
+                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                        </div>
+                                        <div class='modal-body'>
+                                            <p>Descripción: " . $row['descripcion'] . "</p>
+                                            <p>Precio: $" . $row['precio'] . "</p>
+                                            <p>Categoría: " . $row['nombre_categoria'] . "</p>
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                                            <button type='button' class='btn btn-primary'>Comprar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
 
                         echo "</li>";
                     }
@@ -156,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
