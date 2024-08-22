@@ -12,6 +12,26 @@
 <body>
 <?php
 session_start();
+include '../../db.php';
+
+// Procesar eliminación de producto
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id'])) {
+    $remove_product_id = $_POST['remove_product_id'];
+
+    // Verifica si el producto está en el carrito y lo elimina
+    if (($key = array_search($remove_product_id, $_SESSION['cart'])) !== false) {
+        unset($_SESSION['cart'][$key]);
+        $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+    }
+
+    // Redirigir a la misma página del carrito para evitar reenvío del formulario
+    header("Location: carrito.php");
+    exit();
+}
+
+?>
+<?php
+session_start();
 
 // Si se envía un formulario para añadir un producto al carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -102,47 +122,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Contenido adicional -->
         <div>
-            <?php
-                if (!empty($_SESSION['cart'])) {
-                    // Aquí deberías consultar la base de datos para obtener los detalles de cada producto
-                    // utilizando los IDs almacenados en $_SESSION['cart'].
+        <?php
+            if (!empty($_SESSION['cart'])) {
+                $ids = implode(',', array_map('intval', $_SESSION['cart']));
+                $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos 
+                        JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
+                        WHERE Productos.id_producto IN ($ids)";
+                $result = $conn->query($query);
 
-                    echo '<ul>';
-                    foreach ($_SESSION['cart'] as $product_id) {
-                        // Reemplaza esto con la lógica para obtener el nombre y precio del producto
-                        echo "<li>Producto ID: $product_id <br> Nombre: [Nombre del Producto] <br> Precio: [Precio]</li>";
+                if ($result->num_rows > 0) {
+                    echo '<ul class="cart-list">';
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<li class='cart-container'>Nombre: " . $row['nombre'] . "<br> 
+                            Precio: $" . $row['precio'] . "<br> 
+                            Categoría: " . $row['nombre_categoria'] . "<br>";
+
+                        // Botón para eliminar el producto
+                        echo "<form method='POST' action='carrito.php' class='delete-btn'>
+                                <input type='hidden' name='remove_product_id' value='" . $row['id_producto'] . "'>
+                                <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
+                                </form>";
+
+                        echo "</li>";
                     }
                     echo '</ul>';
                 } else {
-                    echo '<p>Tu carrito está vacío.</p>';
+                    echo '<p class="non-product">No se encontraron productos en el carrito.</p>';
                 }
-            ?>
+            } else {
+                echo '<p class="non-product">Tu carrito está vacío.</p>';
+            }
+        ?>
+
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
-    <script>const f = document.getElementById('form');
-        const q = document.getElementById('query');
-        const google = '';
-        const site = 'pagedart.com';
-  
-        function submitted(event) {
-          event.preventDefault();
-          const url = google + site + '+' + q.value;
-          const win = window.open(url, '_blank');
-          win.focus();
-        }
-  
-        f.addEventListener('submit', submitted);</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script>
-        // Inicialización del carrusel
-        const carousel = new bootstrap.Carousel('#carouselExample', {
-            interval: 3000, // Cambia de imagen cada 3 segundos
-            pause: 'hover' // Pausa el carrusel al pasar el mouse sobre él
-        });
-    </script>
 </body>
 
 </html>

@@ -108,6 +108,7 @@ html {
     width: 100%;
     z-index: 1;
     box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.3);
+    top: -48px;
 }
 .sub-navbar p{
     display:inline;
@@ -150,6 +151,14 @@ html {
     margin: 0;
 }
 
+.cart-container{
+    display: flex;  
+    gap: 50px;
+    padding: 15px;
+    align-items: center;
+    border-bottom: solid 1px #b6b6b6;
+}
+
 .add-cart{
     width: 0;
     height: 100%;
@@ -169,7 +178,30 @@ html {
     border-color: crimson;
 }
 
+.delete-btn {
+    display: flex;
+    width: 0;
+    height: 100%;
+    align-items: center;
+}
 
+.delete-btn button{
+    width: 500px;
+    height: auto;
+}
+
+.cart-list {
+    margin-top: -48px;
+}
+
+
+
+.cart-list ol, ul {
+   padding-left: 0;
+}
+.non-product {
+    margin-top: -48px;
+}
 
 @media (max-width: 768px) {
 
