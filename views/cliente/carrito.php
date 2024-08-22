@@ -19,27 +19,29 @@ include '../../db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id'])) {
     $remove_product_id = $_POST['remove_product_id'];
 
-    // Verifica si el producto está en el carrito y lo elimina
-    if (($key = array_search($remove_product_id, $_SESSION['cart'])) !== false) {
-        unset($_SESSION['cart'][$key]);
-        $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+    if (isset($_SESSION['cart'])) {
+        // Verifica si el producto está en el carrito y lo elimina
+        $key = array_search($remove_product_id, $_SESSION['cart']);
+        if ($key !== false) {
+            unset($_SESSION['cart'][$key]);
+            $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+        }
     }
 
     // Redirigir a la misma página del carrito para evitar reenvío del formulario
     header("Location: carrito.php");
     exit();
 }
-
 ?>
+
 <?php
+
 session_start();
 
 // Si se envía un formulario para añadir un producto al carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];
 
-    // Aquí puedes añadir la lógica para buscar los detalles del producto en tu base de datos
-    // y añadirlo al carrito. En este ejemplo, solo estamos almacenando el ID del producto.
 
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -70,29 +72,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </svg>
             DeportiNet
         </a>
-        <form id="form" role="search">
-            <input type="search" id="query" name="q"
-             placeholder="Buscar..."
-             aria-label="Search through site content">
-            <button><svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
-                <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
-                <path d="m16.61 16.611 4.244 4.243"></path>
-              </svg></button>
-          </form>
-          <div class="navbar-icons">
-            <a class="shopping-cart" type="button" href="./carrito.php"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <form id="form" role="search" action="buscar.php" method="GET">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <button type="submit">
+                <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
+                    <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
+                    <path d="m16.61 16.611 4.244 4.243"></path>
+                </svg>
+            </button>
+        </form>
+
+        <div class="navbar-icons">
+            <a class="shopping-cart position-relative" type="button" href="./carrito.php">
+                <svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg></a>
+                </svg>
+                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                </span>
+            </a>
             <a class="profile" type="button" href="#">
-            <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                <path d="M21 22a9 9 0 1 0-18 0"></path>
+                <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                    <path d="M21 22a9 9 0 1 0-18 0"></path>
                 </svg>
             </a>
         </div>
+
 
     </div>
 
@@ -120,9 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="sub-navbar" style="margin-top: -48px;">
                 <p>Carrito</p>
             </div>
-
-        <!-- Contenido adicional -->
         <div>
+
         <?php
             if (!empty($_SESSION['cart'])) {
                 $ids = implode(',', array_map('intval', $_SESSION['cart']));
@@ -183,6 +191,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateCartCount() {
+            fetch('obtener_cantidad_carrito.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('cart-count').textContent = data;
+                });
+        }
+
+        // Actualiza el contador cada 5 segundos
+        setInterval(updateCartCount, 5000);
+
+        // Actualiza el contador cuando se carga la página
+        window.onload = updateCartCount;
+    </script>
+
 </body>
 
 </html>

@@ -178,6 +178,21 @@ form button {
     width: 150px;
     font-weight: bold;
 }
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.badge {
+    padding: 0.5em 0.7em;
+    font-size: 0.75em;
+    color: white;
+    background-color: crimson;
+    border-radius: 50%;
+}
 
 
 @media (max-width: 768px) {

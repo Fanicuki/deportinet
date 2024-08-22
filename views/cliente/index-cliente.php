@@ -8,7 +8,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="index-main.css">
 </head>
+<?php
+session_start();
+include '../../db.php';
 
+// Procesar eliminación de producto
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id'])) {
+    $remove_product_id = $_POST['remove_product_id'];
+
+    if (isset($_SESSION['cart'])) {
+        // Verifica si el producto está en el carrito y lo elimina
+        $key = array_search($remove_product_id, $_SESSION['cart']);
+        if ($key !== false) {
+            unset($_SESSION['cart'][$key]);
+            $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+        }
+    }
+
+    // Redirigir a la misma página del carrito para evitar reenvío del formulario
+    header("Location: carrito.php");
+    exit();
+}
+?>
 <body>
 
     <!-- Navbar -->
@@ -27,26 +48,31 @@
             </svg>
             DeportiNet
         </a>
-        <form id="form" role="search">
-            <input type="search" id="query" name="q"
-             placeholder="Buscar..."
-             aria-label="Search through site content">
-            <button><svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
-                <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
-                <path d="m16.61 16.611 4.244 4.243"></path>
-              </svg></button>
-          </form>
+        <form id="form" role="search" action="buscar.php" method="GET">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <button type="submit">
+                <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
+                    <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
+                    <path d="m16.61 16.611 4.244 4.243"></path>
+                </svg>
+            </button>
+        </form>
         <div class="navbar-icons">
-            <a class="shopping-cart" type="button" href="./carrito.php"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <a class="shopping-cart position-relative" type="button" href="./carrito.php">
+                <svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg></a>
+                </svg>
+                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                </span>
+            </a>
             <a class="profile" type="button" href="#">
-            <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                <path d="M21 22a9 9 0 1 0-18 0"></path>
+                <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                    <path d="M21 22a9 9 0 1 0-18 0"></path>
                 </svg>
             </a>
         </div>
@@ -100,28 +126,26 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            </div>
         </div>
-
-        <!-- Contenido adicional -->
-        <div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
-    <script>const f = document.getElementById('form');
-        const q = document.getElementById('query');
-        const google = 'https://www.google.com/search?q=site%3A+';
-        const site = 'pagedart.com';
-  
-        function submitted(event) {
-          event.preventDefault();
-          const url = google + site + '+' + q.value;
-          const win = window.open(url, '_blank');
-          win.focus();
+    <script>
+        function updateCartCount() {
+            fetch('obtener_cantidad_carrito.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('cart-count').textContent = data;
+                });
         }
-  
-        f.addEventListener('submit', submitted);</script>
+
+        // Actualiza el contador cada 5 segundos
+        setInterval(updateCartCount, 5000);
+
+        // Actualiza el contador cuando se carga la página
+        window.onload = updateCartCount;
+    </script>
 </body>
 
 </html>

@@ -27,16 +27,16 @@
             </svg>
             DeportiNet
         </a>
-        <form id="form" role="search">
-            <input type="search" id="query" name="q"
-             placeholder="Buscar..."
-             aria-label="Search through site content">
-            <button><svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
-                <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
-                <path d="m16.61 16.611 4.244 4.243"></path>
-              </svg></button>
-          </form>
+        <form id="form" role="search" action="buscar.php" method="GET">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <button type="submit">
+                <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
+                    <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
+                    <path d="m16.61 16.611 4.244 4.243"></path>
+                </svg>
+            </button>
+        </form>
             <a class="profile" type="button" href="logeo.php">
                 Iniciar Sesión
             </a>
@@ -62,13 +62,6 @@
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
-        <a href="#ayuda" >
-            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
-                <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
-                <path d="M12.25 17v-7h-1"></path>
-                <path d="M10.5 17H14"></path>
-              </svg>Ayuda</a>
     </div>
 </div>
 
