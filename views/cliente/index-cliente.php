@@ -69,12 +69,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                     0
                 </span>
             </a>
-            <a class="profile" type="button" href="#">
-                <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                    <path d="M21 22a9 9 0 1 0-18 0"></path>
-                </svg>
-            </a>
+            <!-- Dropdown de perfil -->
+            <div class="dropdown" style="display: inline">
+                <a class="profile dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                        <path d="M21 22a9 9 0 1 0-18 0"></path>
+                    </svg>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -60px;">
+                    <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
+                </ul>
+            </div>
         </div>
 
     </div>
