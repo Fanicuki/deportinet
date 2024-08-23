@@ -1,4 +1,4 @@
-//crea, añade, actualiza el pedido
+
 <?php
 include 'db.php';
 session_start();

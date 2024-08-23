@@ -1,5 +1,4 @@
 <?php
-// archivo: obtener_cantidad_carrito.php
 session_start();
 
 $cart_count = 0;

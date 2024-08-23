@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             </svg>
             DeportiNet
         </a>
-        <form id="form" role="search" action="buscar.php" method="GET">
+        <form id="form" role="search" action="buscar.php" method="GET" class="searchbar">
             <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
             <button type="submit">
                 <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -71,14 +71,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             </a>
             <!-- Dropdown de perfil -->
             <div class="dropdown" style="display: inline">
-                <a class="profile dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="profile " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
                         <path d="M21 22a9 9 0 1 0-18 0"></path>
                     </svg>
                 </a>
 
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -60px;">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -90px;">
                     <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -159,8 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                             echo "<div class='productos-container'>";
                             while ($row = $result->fetch_assoc()) {
                                 echo "<div class='producto'>";
-                                // Output the image
-                                echo "<img src='" . ($row['img']) . "' alt='" . htmlspecialchars($row['nombre']) . "' class='producto-img'>";
                                 echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                                 echo "<p>" . htmlspecialchars($row['descripcion']) . "</p>";
                                 echo "<p class='precio'>$" . htmlspecialchars($row['precio']) . "</p>";
@@ -177,7 +175,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
 
 
                     </div>
-
+                    <div class="categories">
+                    <h1>Categorías</h1>
+                    <div class="category-buttons">
+                        <button class="category-button">
+                            <svg width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3h18v18H3V3Z"></path>
+                            </svg>
+                            <span>Deportes</span>
+                        </button>
+                        <button class="category-button">
+                            <svg width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2a10 10 0 0 1 10 10v10H2V12A10 10 0 0 1 12 2Z"></path>
+                            </svg>
+                            <span>Fitness</span>
+                        </button>
+                        <button class="category-button">
+                            <svg width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2a10 10 0 0 1 10 10v10H2V12A10 10 0 0 1 12 2Z"></path>
+                            </svg>
+                            <span>Indumentaria</span>
+                        </button>
+                    </div>
                 </div>
             <div>
         </div>

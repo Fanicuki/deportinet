@@ -111,8 +111,6 @@
                             echo "<div class='productos-container'>";
                             while ($row = $result->fetch_assoc()) {
                                 echo "<div class='producto'>";
-                                // Output the image
-                                echo "<img src='" . ($row['img']) . "' alt='" . htmlspecialchars($row['nombre']) . "' class='producto-img'>";
                                 echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
                                 echo "<p>" . htmlspecialchars($row['descripcion']) . "</p>";
                                 echo "<p class='precio'>$" . htmlspecialchars($row['precio']) . "</p>";
