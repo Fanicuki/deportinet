@@ -36,16 +36,6 @@
             </button>
         </form>
         <div class="navbar-icons">
-            <a class="shopping-cart position-relative" type="button" href="./carrito.php">
-                <svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                    <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    0
-                </span>
-            </a>
             <!-- Dropdown de perfil -->
             <div class="dropdown" style="display: inline">
                 <a class="profile " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

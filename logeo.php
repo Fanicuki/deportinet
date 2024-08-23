@@ -41,4 +41,6 @@
                 </form>
             </div>
     </div>
+
+    <a href="index.php" class="index-back-btn">Volver al inicio</a>
 </div>

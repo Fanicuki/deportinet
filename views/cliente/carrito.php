@@ -129,6 +129,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
+        <div class="diagonal-block block1"></div>
+        <div class="diagonal-block block2"></div>
+        <div class="diagonal-block block3"></div>
     </div>
 
     <!-- Contenedor Principal -->
