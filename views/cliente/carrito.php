@@ -180,7 +180,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <input type='hidden' name='productos[0][id]' value='" . $row['id_producto'] . "'>
                                                 <input type='hidden' name='productos[0][cantidad]' value='1'>
                                                 <input type='hidden' name='productos[0][precio]' value='" . $row['precio'] . "'>
-                                                <button type='submit' class='btn btn-primary'>Comprar</button>
+                                                <button type='submit' class='btn btn-primary'>Comprar</button>";
+?>
+<?php
+
+    use MercadoPago\Client\Preference\PreferenceClient;
+    use MercadoPago\MercadoPagoConfig;
+    require '../vendor/autoload.php';
+    MercadoPagoConfig::setAccessToken("APP_USR-7854084530284610-081814-ef64e9962983f3b48c4cdc11a75632d7-1950389309");
+
+    $client = new PreferenceClient();
+    
+    $backUrls = [
+        "success" => "https://lugengar.github.io/Proyecto-INET/bypass/index.html"
+    ];
+    $items[] = [
+        "id" => $row['id_producto'],
+        "title" => $row["nombre"],
+        "description" => $row["descripcion"],
+        "quantity" => $row["precio"],
+        "unit_price" => 1,//floatval($row["precio"]),
+    ];
+   
+    $_SESSION['total'] = $total;
+    $conn->close();
+    $preference = $client->create([
+        "items" => $items,
+        "back_urls" => $backUrls,
+        "auto_return" => "approved",
+        "statement_descriptor" => "DEPORTINET", 
+        "external_reference" => "",
+
+    ]);
+    ?>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+
+    <div id="wallet_container"></div>
+<script>
+const mp = new MercadoPago('APP_USR-73e6ac01-337e-4425-ad81-c97a449906f3', {locale: "es-AR"});
+mp.bricks().create("wallet", "wallet_container", {
+   initialization: {
+       preferenceId: '<?php echo $preference->id; ?>',
+       //redirectMode: "modal",
+   },
+customization: {
+ texts: {
+    action: "buy",
+  valueProp: 'security_safety',
+ },
+ },
+});
+
+
+
+</script>
+
+<?php
+                                                echo"
                                             </form>
                                         </div>
                                         <div class='modal-footer'>
