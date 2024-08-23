@@ -1,6 +1,6 @@
-//crea, añade, actualiza el pedido
+
 <?php
-include 'db_connect.php';
+include 'db.php';
 session_start();
 
 if (!isset($_SESSION['usuario'])) {

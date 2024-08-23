@@ -1,16 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeportiNet - Catálogo</title>
+    <title>DeportiNet - Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./cssMain/index-main.css">
 </head>
-
 <body>
-
     <!-- Navbar -->
     <div class="navbar">
         <a class="navbar-brand" href="#">
@@ -41,13 +39,10 @@
                 Iniciar Sesión
             </a>
         </div>
-
     </div>
-
     <!-- Sidebar -->
-    <!-- Sidebar -->
-<div class="sidebar">
-<a href="index.php" >
+    <div class="sidebar">
+        <a href="index.php" >
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
@@ -66,124 +61,50 @@
         <div class="diagonal-block block2"></div>
         <div class="diagonal-block block3"></div>
     </div>
-</div>
-
     <!-- Contenedor Principal -->
-    <div class="main-content">
+        <div class="main-content">
         <div class="sub-content">
             <div class="sub-navbar">
-                <p>Catálogo</p>
-            </div>
-            <div class="list-sub-navbar">
-                <p>Producto</p>
-                <p>Descripción</p>
-                <p>Precio</p>
-                <p>Categoría</p>
+                <p>Menú</p>
             </div>
         </div>
         
-
-        <!-- Contenido adicional -->
-        <div class="contenido">
         <?php
             include 'db.php';
-            //back-end
-            $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
-            $result = $conn->query($query);
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='producto'>";
-                    echo "<h3>" . $row['nombre'] . "</h3>";
-                    echo "<p>" . $row['descripcion'] . "</p>";
-                    echo "<p>$" . $row['precio'] . "</p>";
-                    echo "<p>" . $row['nombre_categoria'] . "</p>";
-                    echo "</div>";
+            if (isset($_GET['q'])) {
+                $search_query = $conn->real_escape_string($_GET['q']);
+                
+                // Consulta para buscar productos por nombre o categoría
+                $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos 
+                        JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
+                        WHERE Productos.nombre LIKE '%$search_query%' 
+                        OR Categorias.nombre_categoria LIKE '%$search_query%'";
+                        
+                $result = $conn->query($query);
+
+                if ($result->num_rows > 0) {
+                    echo '<ul class="resultado-busqueda">';
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<li>" . $row['nombre'] . " - $" . $row['precio'] . " (" . $row['nombre_categoria'] . ")</li>";
+                    }
+                    echo '</ul>';
+                } else {
+                    echo '<p>No se encontraron productos.</p>';
                 }
             } else {
-                echo "No hay productos disponibles";
+                echo '<p>No se ha proporcionado una consulta de búsqueda.</p>';
             }
         ?>
-        
+
+        <div>
         </div>
-
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script>
-        // Inicialización del carrusel
-        const carousel = new bootstrap.Carousel('#carouselExample', {
-            interval: 3000, // Cambia de imagen cada 3 segundos
-            pause: 'hover' // Pausa el carrusel al pasar el mouse sobre él
-        });
-    </script>
-    <script>
-        async function searchProducts() {
-    const query = document.getElementById('searchInput').value;
-
-    // Llama a la API de búsqueda
-    try {
-        const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
-        const products = await response.json();
-        displayResults(products);
-    } catch (error) {
-        console.error('Error al realizar la búsqueda:', error);
-    }
-}
-
-function displayResults(products) {
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = ''; // Limpia los resultados anteriores
-
-    // Verifica si hay productos
-    if (products.length === 0) {
-        resultsDiv.innerText = 'No se encontraron productos.';
-        return;
-    }
-
-    // Muestra cada producto en la sección de resultados
-    products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.innerHTML = `<h3>${product.nombre}</h3>
-                                <p>${product.descripcion}</p>
-                                <p>Precio: $${product.precio.toFixed(2)}</p>`;
-        resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
-    });
-}
-</script>
+    
 </body>
-
 </html>
 
-// <script>
-//         async function searchProducts() {
-//     const query = document.getElementById('searchInput').value;
 
-//     // Llama a la API de búsqueda
-//     try {
-//         const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
-//         const products = await response.json();
-//         displayResults(products);
-//     } catch (error) {
-//         console.error('Error al realizar la búsqueda:', error);
-//     }
-// }
 
-// function displayResults(products) {
-//     const resultsDiv = document.getElementById('results');
-//     resultsDiv.innerHTML = ''; // Limpia los resultados anteriores
 
-//     // Verifica si hay productos
-//     if (products.length === 0) {
-//         resultsDiv.innerText = 'No se encontraron productos.';
-//         return;
-//     }
-
-//     // Muestra cada producto en la sección de resultados
-//     products.forEach(product => {
-//         const productDiv = document.createElement('div');
-//         productDiv.innerHTML = `<h3>${product.nombre}</h3>
-//                                 <p>${product.descripcion}</p>
-//                                 <p>Precio: $${product.precio.toFixed(2)}</p>`;
-//         resultsDiv.appendChild(productDiv); // Agrega el producto a la sección de resultados
-//     });
-// }

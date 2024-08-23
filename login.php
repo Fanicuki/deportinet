@@ -15,12 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($id, $gmail, $contraseña_encriptada);
         $stmt->fetch();
         if (password_verify($contraseña, $contraseña_encriptada)) {
-            header("Location: success.php");
+            header("Location: ./views/cliente/index-cliente.php");
         } else {
             echo "Usuario o contraseña incorrectos.";
         }
     } else {
-        echo "Usuario no encontrado.";
+        echo "Usuario o contraseña incorrectos.";
     }
 
     $stmt->close();

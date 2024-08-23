@@ -6,14 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeportiNet - Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="index-main-cliente.css">
+    <link rel="stylesheet" href="index-main.css">
 </head>
+<?php
+session_start();
+include '../../db.php';
 
+// Procesar eliminación de producto
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id'])) {
+    $remove_product_id = $_POST['remove_product_id'];
+
+    if (isset($_SESSION['cart'])) {
+        // Verifica si el producto está en el carrito y lo elimina
+        $key = array_search($remove_product_id, $_SESSION['cart']);
+        if ($key !== false) {
+            unset($_SESSION['cart'][$key]);
+            $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+        }
+    }
+
+    // Redirigir a la misma página del carrito para evitar reenvío del formulario
+    header("Location: carrito.php");
+    exit();
+}
+?>
 <body>
 
     <!-- Navbar -->
     <div class="navbar">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index-cliente.php">
             <svg width="46" height="46" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
                 <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
@@ -27,28 +48,40 @@
             </svg>
             DeportiNet
         </a>
-        <form id="form" role="search">
-            <input type="search" id="query" name="q"
-             placeholder="Buscar..."
-             aria-label="Search through site content">
-            <button><svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
-                <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
-                <path d="m16.61 16.611 4.244 4.243"></path>
-              </svg></button>
-          </form>
+        <form id="form" role="search" action="buscar.php" method="GET" class="searchbar">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <button type="submit">
+                <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
+                    <path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
+                    <path d="m16.61 16.611 4.244 4.243"></path>
+                </svg>
+            </button>
+        </form>
         <div class="navbar-icons">
-            <a class="shopping-cart" type="button" href="#"><svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <a class="shopping-cart position-relative" type="button" href="./carrito.php">
+                <svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg></a>
-            <a class="profile" type="button" href="#">
-            <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                <path d="M21 22a9 9 0 1 0-18 0"></path>
                 </svg>
+                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                </span>
             </a>
+            <!-- Dropdown de perfil -->
+            <div class="dropdown" style="display: inline">
+                <a class="profile " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                        <path d="M21 22a9 9 0 1 0-18 0"></path>
+                    </svg>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -90px;">
+                    <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
+                </ul>
+            </div>
         </div>
 
     </div>
@@ -69,68 +102,207 @@
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
-        <a href="#ayuda">
-            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z"></path>
-                <path fill="currentColor" fill-rule="evenodd" stroke="none" d="M12 5.5A1.25 1.25 0 1 1 12 8a1.25 1.25 0 0 1 0-2.5Z" clip-rule="evenodd"></path>
-                <path d="M12.25 17v-7h-1"></path>
-                <path d="M10.5 17H14"></path>
-              </svg>Ayuda</a>
+        <div class="diagonal-block block1"></div>
+        <div class="diagonal-block block2"></div>
+        <div class="diagonal-block block3"></div>
     </div>
 
     <!-- Contenedor Principal -->
     <div class="main-content">
-        <div class="sub-content">
-            <div class="sub-navbar">
-                <p>Menú</p>
+            <div class="sub-content">
+                <div class="sub-navbar">
+                    <p>Menú</p>
+                </div>
             </div>
-        </div>
-        <div class="carousel-container">
-            <!-- Carrusel Bootstrap -->
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/555469_v5.JPG"  alt="Imagen 1">
+            <div class="content">
+                <div class="carousel-container">
+                    <!-- Carrusel  -->
+                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://i.pinimg.com/736x/fc/2d/3e/fc2d3e2f6283e20b536dc4864971e272.jpg"  alt="Imagen 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://i.pinimg.com/736x/51/f8/43/51f8430fbf1b5d19bacd9d858c38430d.jpg"  alt="Imagen 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://i.pinimg.com/564x/6f/39/0c/6f390c3851bf5d79a66724d5e01167eb.jpg"  alt="Imagen 3">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="https://assets.goal.com/images/v3/bltbc19a765112b199e/77d64118f93aec9c3bbe7a8066e975c3a84d5a35.jpg"  alt="Imagen 2">
+
+                    <div class="latest-products">
+                <h1 style="position: absolute">Últimos productos</h1>
+                    <div class="product-list">
+                    <?php
+                        include '../../db.php';
+                        // back-end
+                        $query = "SELECT Productos.*, Categorias.nombre_categoria 
+                                FROM Productos 
+                                JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
+                                ORDER BY Productos.id_producto DESC 
+                                LIMIT 5";
+                        
+                        $result = $conn->query($query);
+
+                        if ($result->num_rows > 0) {
+                            echo "<div class='productos-container'>";
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<div class='producto'>";
+                                echo "<h3>" . htmlspecialchars($row['nombre']) . "</h3>";
+                                echo "<p>" . htmlspecialchars($row['descripcion']) . "</p>";
+                                echo "<p class='precio'>$" . htmlspecialchars($row['precio']) . "</p>";
+                                echo "<p class='categoria'>" . htmlspecialchars($row['nombre_categoria']) . "</p>";
+                                echo "<button class='comprar-btn'>Comprar</button>";
+                                echo "</div>";
+                            }
+                            echo "</div>";
+                        } else {
+                            echo "No hay productos disponibles";
+                        }
+                    ?>
+
+
+
                     </div>
-                    <div class="carousel-item">
-                        <img src="https://preview.thenewsmarket.com/Previews/ADID/StillAssets/1920x1080/643339_v2.jpg"  alt="Imagen 3">
+                    <div class="categories">
+                    <h1>Categorías</h1>
+                    <div class="category-buttons">
+                        <button class="category-button">
+                            <svg width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3h18v18H3V3Z"></path>
+                            </svg>
+                            <span>Deportes</span>
+                        </button>
+                        <button class="category-button">
+                            <svg width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2a10 10 0 0 1 10 10v10H2V12A10 10 0 0 1 12 2Z"></path>
+                            </svg>
+                            <span>Fitness</span>
+                        </button>
+                        <button class="category-button">
+                            <svg width="24" height="24" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2a10 10 0 0 1 10 10v10H2V12A10 10 0 0 1 12 2Z"></path>
+                            </svg>
+                            <span>Indumentaria</span>
+                        </button>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+            <div>
         </div>
 
-        <!-- Contenido adicional -->
-        <div>
-            <h2>HOLAAAA MAS GRANDEEE</h2>
-            <p>HOLAAAAAAA</p>
-        </div>
-    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+    function searchProducts(event) {
+        event.preventDefault();
+        const query = document.getElementById('query').value;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWDSHjMxoBrJzkNCtfgZre2FZ2Jt23V+HoK1R9Y7sl1Pq4DuhzHpuY3CkThM6f57" crossorigin="anonymous"></script>
-    <script>const f = document.getElementById('form');
-        const q = document.getElementById('query');
-        const google = 'https://www.google.com/search?q=site%3A+';
-        const site = 'pagedart.com';
-  
-        function submitted(event) {
-          event.preventDefault();
-          const url = google + site + '+' + q.value;
-          const win = window.open(url, '_blank');
-          win.focus();
+        // Realiza la solicitud GET con AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `catalogo.php?q=${query}`, true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Actualiza el contenido del catálogo
+                document.getElementById('catalog').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+    </script>
+    <script>
+        function updateCartCount() {
+            fetch('obtener_cantidad_carrito.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('cart-count').textContent = data;
+                });
         }
-  
-        f.addEventListener('submit', submitted);</script>
-</body>
 
+        // Actualiza el contador cada 5 segundos
+        setInterval(updateCartCount, 5000);
+
+        // Actualiza el contador cuando se carga la página
+        window.onload = updateCartCount;
+    </script>
+
+</body>
+<style>
+.productos-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+}
+
+.producto {
+    display: grid;
+    background-color: #f8f8f8;
+    border: 2px solid crimson;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.producto:hover {
+    transform: scale(1.05);
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.producto h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.producto p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.producto .precio {
+    font-size: 16px;
+    color: #e60000;
+    font-weight: bold;
+}
+
+.producto .categoria {
+    font-size: 12px;
+    color: #999;
+}
+
+.comprar-btn {
+    background-color: crimson;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.comprar-btn:hover {
+    background-color: rgb(145, 14, 40);
+}
+
+</style>
 </html>
