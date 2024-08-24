@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
 ?>
     <!-- Navbar -->
     <div class="navbar">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index-jefe.php">
             <svg width="46" height="46" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
                 <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
@@ -79,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="index-cliente.php"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <a href="index-jefe.php"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="#catalogo">
+        <a href="catalogo-jefe.php">
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -93,6 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
+        <a href="#catalogo">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+            <path d="M12 6v6l4 2"></path>
+            </svg>
+            Pedidos</a>
         <div class="diagonal-block block1"></div>
         <div class="diagonal-block block2"></div>
         <div class="diagonal-block block3"></div>
@@ -103,6 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
         <div class="sub-content">
             <div class="sub-navbar">
                 <p>Catálogo</p>
+                <a href="#"><button type="button" style="background-color: transparent; border-color: transparent; float: right"><p style="font-size: 20px; ">Añadir producto</p><svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12c0-4.969-4.031-9-9-9s-9 4.031-9 9 4.031 9 9 9 9-4.031 9-9Z"></path>
+                <path d="M12 8.25v7.5"></path>
+                <path d="M15.75 12h-7.5"></path>
+                </svg></button></a>
             </div>
             <div class="list-sub-navbar">
                 <p>Producto</p>
@@ -130,13 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                         echo "<p>" . $row['nombre_categoria'] . "</p>";
                         echo "<form class='add-cart' method='POST' action='carrito.php'>";
                         echo "<input type='hidden' name='product_id' value='" . $row['id_producto'] . "'>";
-                        echo "<button type='submit' class='btn btn-primary'><svg width='30' height='30' fill='none' stroke='crimson' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M15.586 17.586a2 2 0 1 1 2.828 2.828 2 2 0 0 1-2.828-2.828Z'></path>
-                                    <path d='M8.414 20.414a2 2 0 1 0-2.828-2.828 2 2 0 0 0 2.828 2.828Z'></path>
-                                    <path d='m7 13-2.293 2.293c-.63.63-.184 1.707.707 1.707H17'></path>
-                                    <path d='M5.4 5H21l-4 8H7L5.4 5Z'></path>
-                                    <path d='M3 3h2l.4 2'></path>
-                                </svg></button>";
                         echo "</form>";
                         echo "</div>";
                     }
