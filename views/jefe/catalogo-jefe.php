@@ -123,7 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             </div>
         </div>
         
-
         <!-- Contenido adicional -->
         <div class="contenido">
             <?php

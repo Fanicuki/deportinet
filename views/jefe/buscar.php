@@ -68,6 +68,12 @@
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
+        <a href="#catalogo">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+            <path d="M12 6v6l4 2"></path>
+            </svg>
+            Pedidos</a>
         <div class="diagonal-block block1"></div>
         <div class="diagonal-block block2"></div>
         <div class="diagonal-block block3"></div>
