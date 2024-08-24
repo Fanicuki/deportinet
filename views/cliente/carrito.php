@@ -11,32 +11,31 @@
 </head>
 
 <body>
+    
 <?php
 session_start();
 include '../../db.php';
 
-// Procesar eliminación de producto
+// Manejo de la eliminación de un producto del carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id'])) {
     $remove_product_id = $_POST['remove_product_id'];
 
-    if (isset($_SESSION['cart'])) {
-        // Verifica si el producto está en el carrito y lo elimina
-        $key = array_search($remove_product_id, $_SESSION['cart']);
-        if ($key !== false) {
-            unset($_SESSION['cart'][$key]);
-            $_SESSION['cart'] = array_values($_SESSION['cart']); // Reindexar el array
+    // Filtrar los productos del carrito para eliminar solo una unidad del seleccionado
+    foreach ($_SESSION['cart'] as $key => $item) {
+        if ($item['id'] == $remove_product_id) {
+            if ($item['cantidad'] > 1) {
+                $_SESSION['cart'][$key]['cantidad']--;
+            } else {
+                unset($_SESSION['cart'][$key]);
+            }
+            break;
         }
     }
 
-    // Redirigir a la misma página del carrito para evitar reenvío del formulario
+    // Redirigir para evitar reenvío del formulario
     header("Location: carrito.php");
     exit();
 }
-?>
-
-<?php
-
-session_start();
 
 // Si se envía un formulario para añadir un producto al carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -137,76 +136,85 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Contenedor Principal -->
     <div class="main-content">
-        <div class="sub-content">
-            <div class="sub-navbar" style="margin-top: -48px;">
-                <p>Carrito</p>
-            </div>
+    <div class="sub-content">
+        <div class="sub-navbar">
+            <p>Carrito</p>
+        </div>
         <div>
-
         <?php
-            if (!empty($_SESSION['cart'])) {
-                $ids = implode(',', array_map('intval', $_SESSION['cart']));
-                $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos 
-                        JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
-                        WHERE Productos.id_producto IN ($ids)";
-                $result = $conn->query($query);
+        if (!empty($_SESSION['cart'])) {
+            $ids = implode(',', array_column($_SESSION['cart'], 'id'));
+            $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos 
+                    JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
+                    WHERE Productos.id_producto IN ($ids)";
+            $result = $conn->query($query);
 
-                if ($result->num_rows > 0) {
-                    echo '<ul class="contenido">';
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<li class='producto'>
-                                Nombre: " . $row['nombre'] . "<br> 
-                                Precio: $" . $row['precio'] . "<br> 
-                                Categoría: " . $row['nombre_categoria'] . "<br>";
+            if ($result->num_rows > 0) {
+                echo '<ul class="contenido" style="padding: 0;">';
+                foreach ($_SESSION['cart'] as $cart_item) {
+                    $id_producto = $cart_item['id'];
+                    $cantidad = $cart_item['cantidad'];
 
-                        echo "<form method='POST' action='carrito.php' class='delete-btn'>
-                                <input type='hidden' name='remove_product_id' value='" . $row['id_producto'] . "'>
-                                <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
-                            </form>";
+                    $query_producto = "SELECT * FROM Productos WHERE id_producto = $id_producto";
+                    $result_producto = $conn->query($query_producto);
+                    $producto = $result_producto->fetch_assoc();
 
-                        // Botón para abrir el modal
-                        echo "<button type='button' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#modalProducto" . $row['id_producto'] . "'>Comprar</button>";
+                    $total_producto = $producto['precio'] * $cantidad;
 
-                        // Modal con la información del producto y botón "Comprar"
-                        echo "<div class='modal fade' id='modalProducto" . $row['id_producto'] . "' tabindex='-1' aria-labelledby='modalLabel" . $row['id_producto'] . "' aria-hidden='true'>
-                                <div class='modal-dialog'>
-                                    <div class='modal-content'>
-                                        <div class='modal-header'>
-                                            <h5 class='modal-title' id='modalLabel" . $row['id_producto'] . "'>" . $row['nombre'] . "</h5>
-                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                                        </div>
-                                        <div class='modal-body'>
-                                            <p>Descripción: " . $row['descripcion'] . "</p>
-                                            <p>Precio: $" . $row['precio'] . "</p>
-                                            <p>Categoría: " . $row['nombre_categoria'] . "</p>
-                                            <form method='POST' action='procesar_pedido.php'>
-                                                <input type='hidden' name='productos[0][id]' value='" . $row['id_producto'] . "'>
-                                                <input type='number' name='productos[0][cantidad]' value='1' min='1' class='form-control mb-2'>
-                                                <input type='hidden' name='productos[0][precio]' value='" . $row['precio'] . "'>
-                                                <button type='submit' class='btn btn-primary'>Comprar</button>
-                                            </form>
-                                        </div>
-                                        <div class='modal-footer'>
-                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                                        </div>
+                    echo "<li class='producto'>
+                            Nombre: " . $producto['nombre'] . "<br> 
+                            Precio Unitario: $" . $producto['precio'] . "<br> 
+                            Cantidad: $cantidad<br>
+                            Total: $" . $total_producto . "<br>";
+
+                    echo "<form method='POST' action='carrito.php' class='delete-btn'>
+                            <input type='hidden' name='remove_product_id' value='$id_producto'>
+                            <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
+                        </form>";
+
+                    // Botón para abrir el modal
+                    echo "<button type='button' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#modalProducto$id_producto'>Comprar</button>";
+
+                    // Modal con la información del producto y botón "Comprar"
+                    echo "<div class='modal fade' id='modalProducto$id_producto' tabindex='-1' aria-labelledby='modalLabel$id_producto' aria-hidden='true'>
+                            <div class='modal-dialog'>
+                                <div class='modal-content'>
+                                    <div class='modal-header'>
+                                        <h5 class='modal-title' id='modalLabel$id_producto'>" . $producto['nombre'] . "</h5>
+                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                    </div>
+                                    <div class='modal-body'>
+                                        <p>Descripción: " . $producto['descripcion'] . "</p>
+                                        <p>Precio Unitario: $" . $producto['precio'] . "</p>
+                                        <p>Cantidad: $cantidad</p>
+                                        <p>Total a Pagar: $" . $total_producto . "</p>
+                                        <form method='POST' action='procesar_pedido.php'>
+                                            <input type='hidden' name='productos[0][id]' value='$id_producto'>
+                                            <input type='hidden' name='productos[0][cantidad]' value='$cantidad'>
+                                            <input type='hidden' name='productos[0][precio]' value='" . $producto['precio'] . "'>
+                                            <button type='submit' class='btn btn-primary'>Comprar</button>
+                                        </form>
+                                    </div>
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
                                     </div>
                                 </div>
-                            </div>";
+                            </div>
+                        </div>";
 
-                        echo "</li>";
-                    }
-                    echo '</ul>';
-                } else {
-                    echo '<p class="non-product">No se encontraron productos en el carrito.</p>';
+                    echo "</li>";
                 }
+                echo '</ul>';
             } else {
-                echo '<p class="non-product">Tu carrito está vacío.</p>';
+                echo '<p class="non-product">No se encontraron productos en el carrito.</p>';
             }
+        } else {
+            echo '<p class="non-product">Tu carrito está vacío.</p>';
+        }
         ?>
-
-
         </div>
     </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         function updateCartCount() {

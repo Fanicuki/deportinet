@@ -2,6 +2,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./cssMain/logeo.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Deportinet - Inicio de sesión</title>
 
 <div class="contenedor">
     <div class="logo-container">

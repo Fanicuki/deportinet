@@ -89,80 +89,94 @@
         </div>
 
         <div class="pedidos-en-proceso">
-                <h3>Pedidos en proceso</h3>
-                <?php
-                    include('../../db.php');
-                    
-                    $query = "SELECT p.id_pedido, u.usuario, p.fecha_pedido, p.estado, p.total 
-                              FROM pedidos p 
-                              JOIN usuarios u ON p.id_usuario = u.id
-                              WHERE p.estado = 'En proceso'";
-                    $result = mysqli_query($conn, $query);
+            <h3>Pedidos en proceso</h3>
+            <?php
+                include('../../db.php');
+                
+                $query = "SELECT p.id_pedido, u.usuario, p.fecha_pedido, p.estado, p.total, 
+                                prod.nombre AS producto, SUM(dp.cantidad) AS cantidad
+                        FROM pedidos p
+                        JOIN usuarios u ON p.id_usuario = u.id
+                        JOIN detallepedido dp ON p.id_pedido = dp.id_pedido
+                        JOIN productos prod ON dp.id_producto = prod.id_producto
+                        WHERE p.estado = 'En proceso'
+                        GROUP BY p.id_pedido, prod.nombre";
+                $result = mysqli_query($conn, $query);
 
-                    if (mysqli_num_rows($result) > 0) {
-                        echo '<table class="table">';
-                        echo '<thead><tr><th>ID Pedido</th><th>Usuario</th><th>Fecha</th><th>Total</th><th>Acciones</th></tr></thead>';
-                        echo '<tbody>';
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr>';
-                            echo '<td>' . $row['id_pedido'] . '</td>';
-                            echo '<td>' . $row['usuario'] . '</td>';
-                            echo '<td>' . $row['fecha_pedido'] . '</td>';
-                            echo '<td>' . $row['total'] . '</td>';
-                            echo '<td>
-                                    <form action="aceptar_pedido.php" method="POST">
-                                        <input type="hidden" name="id_pedido" value="' . $row['id_pedido'] . '">
-                                        <button type="submit" class="btn btn-success">Aceptar Pedido</button>
-                                    </form>
-                                  </td>';
-                            echo '</tr>';
-                        }
-                        echo '</tbody>';
-                        echo '</table>';
-                    } else {
-                        echo '<p>No hay pedidos en proceso.</p>';
+                if (mysqli_num_rows($result) > 0) {
+                    echo '<table class="table">';
+                    echo '<thead><tr><th>ID Pedido</th><th>Usuario</th><th>Fecha</th><th>Total</th><th>Producto</th><th>Cantidad</th><th>Acciones</th></tr></thead>';
+                    echo '<tbody>';
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $row['id_pedido'] . '</td>';
+                        echo '<td>' . $row['usuario'] . '</td>';
+                        echo '<td>' . $row['fecha_pedido'] . '</td>';
+                        echo '<td>' . $row['total'] . '</td>';
+                        echo '<td>' . $row['producto'] . '</td>';
+                        echo '<td>' . $row['cantidad'] . '</td>'; // Mostrar cantidad de productos
+                        echo '<td>
+                                <form action="aceptar_pedido.php" method="POST">
+                                    <input type="hidden" name="id_pedido" value="' . $row['id_pedido'] . '">
+                                    <button type="submit" class="btn btn-success">Aceptar Pedido</button>
+                                </form>
+                            </td>';
+                        echo '</tr>';
                     }
-                ?>
-            </div>
+                    echo '</tbody>';
+                    echo '</table>';
+                } else {
+                    echo '<p>No hay pedidos en proceso.</p>';
+                }
+            ?>
+        </div>
 
-            <!-- Apartado de Pedidos "Completado" -->
-            <div class="pedidos-completados">
-                <h3>Pedidos completados</h3>
-                <?php
-                    include('../../db.php');
 
-                    // Consulta para obtener los pedidos completados
-                    $query = "SELECT p.id_pedido, u.usuario, p.fecha_aceptacion AS fecha_pedido, p.estado, p.total 
-                            FROM pedidos p 
-                            JOIN usuarios u ON p.id_usuario = u.id
-                            WHERE p.estado = 'Completado'";
-                    $result = mysqli_query($conn, $query);
 
-                    if (mysqli_num_rows($result) > 0) {
-                        echo '<table class="table">';
-                        echo '<thead><tr><th>ID Pedido</th><th>Usuario</th><th>Fecha Aceptación</th><th>Total</th><th>Acciones</th></tr></thead>';
-                        echo '<tbody>';
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr>';
-                            echo '<td>' . $row['id_pedido'] . '</td>';
-                            echo '<td>' . $row['usuario'] . '</td>';
-                            echo '<td>' . $row['fecha_pedido'] . '</td>';
-                            echo '<td>' . $row['total'] . '</td>';
-                            echo '<td>
-                                    <form action="eliminar_pedido.php" method="POST" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este pedido?\');">
-                                        <input type="hidden" name="id_pedido" value="' . $row['id_pedido'] . '">
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-                                </td>';
-                            echo '</tr>';
-                        }
-                        echo '</tbody>';
-                        echo '</table>';
-                    } else {
-                        echo '<p>Todos los pedidos fueron eliminados.</p>';
+        <!-- Apartado de Pedidos "Completado" -->
+        <div class="pedidos-completados">
+            <h3>Pedidos completados</h3>
+            <?php
+                include('../../db.php');
+
+                $query = "SELECT p.id_pedido, u.usuario, p.fecha_aceptacion AS fecha_pedido, p.estado, p.total, 
+                                prod.nombre AS producto, SUM(dp.cantidad) AS cantidad
+                        FROM pedidos p
+                        JOIN usuarios u ON p.id_usuario = u.id
+                        JOIN detallepedido dp ON p.id_pedido = dp.id_pedido
+                        JOIN productos prod ON dp.id_producto = prod.id_producto
+                        WHERE p.estado = 'Completado'
+                        GROUP BY p.id_pedido, prod.nombre";
+                $result = mysqli_query($conn, $query);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo '<table class="table">';
+                    echo '<thead><tr><th>ID Pedido</th><th>Usuario</th><th>Fecha Aceptación</th><th>Total</th><th>Producto</th><th>Cantidad</th><th>Acciones</th></tr></thead>';
+                    echo '<tbody>';
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $row['id_pedido'] . '</td>';
+                        echo '<td>' . $row['usuario'] . '</td>';
+                        echo '<td>' . $row['fecha_pedido'] . '</td>';
+                        echo '<td>' . $row['total'] . '</td>';
+                        echo '<td>' . $row['producto'] . '</td>';
+                        echo '<td>' . $row['cantidad'] . '</td>'; // Mostrar cantidad de productos
+                        echo '<td>
+                                <form action="eliminar_pedido.php" method="POST" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este pedido?\');">
+                                    <input type="hidden" name="id_pedido" value="' . $row['id_pedido'] . '">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>';
+                        echo '</tr>';
                     }
-                ?>
-            </div>
+                    echo '</tbody>';
+                    echo '</table>';
+                } else {
+                    echo '<p>Todos los pedidos fueron eliminados.</p>';
+                }
+            ?>
+        </div>
+
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

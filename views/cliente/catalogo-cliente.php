@@ -126,33 +126,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
         <!-- Contenido adicional -->
         <div class="contenido">
             <?php
-                include '../../db.php';
-                // back-end
-                $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
-                $result = $conn->query($query);
+            include '../../db.php';
+            // back-end
+            $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria";
+            $result = $conn->query($query);
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<div class='producto'>";
-                        echo "<h3>" . $row['nombre'] . "</h3>";
-                        echo "<p>" . $row['descripcion'] . "</p>";
-                        echo "<p>$" . $row['precio'] . "</p>";
-                        echo "<p>" . $row['nombre_categoria'] . "</p>";
-                        echo "<form class='add-cart' method='POST' action='carrito.php'>";
-                        echo "<input type='hidden' name='product_id' value='" . $row['id_producto'] . "'>";
-                        echo "<button type='submit' class='btn btn-primary'><svg width='30' height='30' fill='none' stroke='crimson' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                                    <path d='M15.586 17.586a2 2 0 1 1 2.828 2.828 2 2 0 0 1-2.828-2.828Z'></path>
-                                    <path d='M8.414 20.414a2 2 0 1 0-2.828-2.828 2 2 0 0 0 2.828 2.828Z'></path>
-                                    <path d='m7 13-2.293 2.293c-.63.63-.184 1.707.707 1.707H17'></path>
-                                    <path d='M5.4 5H21l-4 8H7L5.4 5Z'></path>
-                                    <path d='M3 3h2l.4 2'></path>
-                                </svg></button>";
-                        echo "</form>";
-                        echo "</div>";
-                    }
-                } else {
-                    echo "No hay productos disponibles";
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='producto'>";
+                    echo "<h3>" . $row['nombre'] . "</h3>";
+                    echo "<p>" . $row['descripcion'] . "</p>";
+                    echo "<p>$" . $row['precio'] . "</p>";
+                    echo "<p>" . $row['nombre_categoria'] . "</p>";
+                    echo "<form class='add-cart' method='POST' action='añadir_producto.php'>";
+                    echo "<input type='hidden' name='product_id' value='" . $row['id_producto'] . "'>";
+                    echo "<button type='submit' class='btn btn-primary' style='color: black'><svg width='30' height='30' fill='none' stroke='crimson' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                            <path d='M15.586 17.586a2 2 0 1 1 2.828 2.828 2 2 0 0 1-2.828-2.828Z'></path>
+                            <path d='M8.414 20.414a2 2 0 1 0-2.828-2.828 2 2 0 0 0 2.828 2.828Z'></path>
+                            <path d='m7 13-2.293 2.293c-.63.63-.184 1.707.707 1.707H17'></path>
+                            <path d='M5.4 5H21l-4 8H7L5.4 5Z'></path>
+                            <path d='M3 3h2l.4 2'></path>
+                        </svg> Añadir al carrito</button>";
+                    echo "</form>";
+                    echo "</div>";
                 }
+            } else {
+                echo "No hay productos disponibles";
+            }
             ?>
         </div>
 

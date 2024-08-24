@@ -53,11 +53,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("di", $total, $id_pedido);
         $stmt->execute();
 
-        // Eliminar productos del carrito del usuario
-        unset($_SESSION['cart']); // Suponiendo que guardas el carrito en la sesión
+        // Eliminar productos comprados del carrito
+        if (isset($_SESSION['cart'])) {
+            foreach ($productos as $producto) {
+                $id_producto = $producto['id'];
+                // Elimina solo el producto comprado
+                foreach ($_SESSION['cart'] as $key => $cart_item) {
+                    if ($cart_item['id'] == $id_producto) {
+                        unset($_SESSION['cart'][$key]);
+                        break; // Salir del bucle para no eliminar más de una vez
+                    }
+                }
+            }
+            // Reindexar el array para eliminar huecos
+            $_SESSION['cart'] = array_values($_SESSION['cart']);
+        }
 
         $conn->commit();
-        echo "Pedido creado";
+        echo "Pedido creado con éxito.";
     } catch (Exception $e) {
         $conn->rollback();
         echo "Error: " . $e->getMessage();
