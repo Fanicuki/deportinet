@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
 ?>
     <!-- Navbar -->
     <div class="navbar">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index-cliente.php">
             <svg width="46" height="46" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
                 <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             DeportiNet
         </a>
         <form id="form" role="search" action="buscar.php" method="GET" class="searchbar">
-            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content" required>
             <button type="submit">
                 <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                     0
                 </span>
             </a>
+            <?php echo $_SESSION['usuario']; ?>
             <!-- Dropdown de perfil -->
             <div class="dropdown" style="display: inline">
                 <a class="profile " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -90px;">
-                    <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
+                    <li><a class="dropdown-item" href="../../logeo.php" style="margin-left: 0;text-align: center;">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -93,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="#catalogo">
+        <a href="catalogo-cliente.php">
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>

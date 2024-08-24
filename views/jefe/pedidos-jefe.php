@@ -11,7 +11,7 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="index-jefe.php">
             <svg width="46" height="46" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 12a9.969 9.969 0 0 1-2.944 7.087A9.968 9.968 0 0 1 12 22C6.477 22 2 17.523 2 12a9.966 9.966 0 0 1 2.75-6.888A9.972 9.972 0 0 1 12 2a9.969 9.969 0 0 1 7.056 2.913A9.97 9.97 0 0 1 22 12Z"></path>
                 <path d="M22 12c-1.459 0-5.484-.55-9.087 1.031C9 14.75 6.166 17.416 4.932 19.073"></path>
@@ -36,17 +36,7 @@
             </button>
         </form>
         <div class="navbar-icons">
-            <a class="shopping-cart position-relative" type="button" href="./carrito.php">
-                <svg width="30" height="30" fill="none" stroke="crimson" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                    <path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"></path>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    0
-                </span>
-            </a>
-            <?php session_start(); 
+        <?php session_start(); 
             echo $_SESSION['usuario']; ?>
             <!-- Dropdown de perfil -->
             <div class="dropdown" style="display: inline">
@@ -65,13 +55,13 @@
     </div>
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="index-cliente.php" >
+        <a href="index-jefe.php" >
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.5 21V9L2 11l10-8 10 8-2.5-2v12h-15Z"></path>
             <path d="M9.5 14.5V21h5v-6.5h-5Z"></path>
             <path d="M4.5 21h15"></path>
           </svg>Inicio</a>
-        <a href="catalogo-cliente.php" >
+        <a href="catalogo-jefe.php" >
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.5 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
                 <path d="M4.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -80,6 +70,12 @@
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
+        <a href="pedidos-jefe.php">
+            <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+            <path d="M12 6v6l4 2"></path>
+            </svg>
+            Pedidos</a>
         <div class="diagonal-block block1"></div>
         <div class="diagonal-block block2"></div>
         <div class="diagonal-block block3"></div>
@@ -88,46 +84,88 @@
         <div class="main-content">
         <div class="sub-content">
             <div class="sub-navbar">
-                <p>Buscar</p>
+                <p>Pedidos</p>
             </div>
         </div>
-        
-        <?php
-            include '../../db.php';
 
-            if (isset($_GET['q'])) {
-                $search_query = $conn->real_escape_string($_GET['q']);
-                
-                // Consulta para buscar productos por nombre o categoría
-                $query = "SELECT Productos.*, Categorias.nombre_categoria FROM Productos 
-                        JOIN Categorias ON Productos.id_categoria = Categorias.id_categoria 
-                        WHERE Productos.nombre LIKE '%$search_query%' 
-                        OR Categorias.nombre_categoria LIKE '%$search_query%'";
-                        
-                $result = $conn->query($query);
+        <div class="pedidos-en-proceso">
+                <h3>Pedidos en proceso</h3>
+                <?php
+                    include('../../db.php');
+                    
+                    $query = "SELECT p.id_pedido, u.usuario, p.fecha_pedido, p.estado, p.total 
+                              FROM pedidos p 
+                              JOIN usuarios u ON p.id_usuario = u.id
+                              WHERE p.estado = 'En proceso'";
+                    $result = mysqli_query($conn, $query);
 
-                if ($result->num_rows > 0) {
-                    echo '<ul class="resultado-busqueda">';
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<li>" . $row['nombre'] . " - $" . $row['precio'] . " (" . $row['nombre_categoria'] . ")</li>";
+                    if (mysqli_num_rows($result) > 0) {
+                        echo '<table class="table">';
+                        echo '<thead><tr><th>ID Pedido</th><th>Usuario</th><th>Fecha</th><th>Total</th><th>Acciones</th></tr></thead>';
+                        echo '<tbody>';
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<tr>';
+                            echo '<td>' . $row['id_pedido'] . '</td>';
+                            echo '<td>' . $row['usuario'] . '</td>';
+                            echo '<td>' . $row['fecha_pedido'] . '</td>';
+                            echo '<td>' . $row['total'] . '</td>';
+                            echo '<td>
+                                    <form action="aceptar_pedido.php" method="POST">
+                                        <input type="hidden" name="id_pedido" value="' . $row['id_pedido'] . '">
+                                        <button type="submit" class="btn btn-success">Aceptar Pedido</button>
+                                    </form>
+                                  </td>';
+                            echo '</tr>';
+                        }
+                        echo '</tbody>';
+                        echo '</table>';
+                    } else {
+                        echo '<p>No hay pedidos en proceso.</p>';
                     }
-                    echo '</ul>';
-                } else {
-                    echo '<p>No se encontraron productos.</p>';
-                }
-            } else {
-                echo '<p>No se ha proporcionado una consulta de búsqueda.</p>';
-            }
-        ?>
+                ?>
+            </div>
 
-        <div>
-        </div>
+            <!-- Apartado de Pedidos "Completado" -->
+            <div class="pedidos-completados">
+                <h3>Pedidos completados</h3>
+                <?php
+                    include('../../db.php');
+
+                    // Consulta para obtener los pedidos completados
+                    $query = "SELECT p.id_pedido, u.usuario, p.fecha_aceptacion AS fecha_pedido, p.estado, p.total 
+                            FROM pedidos p 
+                            JOIN usuarios u ON p.id_usuario = u.id
+                            WHERE p.estado = 'Completado'";
+                    $result = mysqli_query($conn, $query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        echo '<table class="table">';
+                        echo '<thead><tr><th>ID Pedido</th><th>Usuario</th><th>Fecha Aceptación</th><th>Total</th><th>Acciones</th></tr></thead>';
+                        echo '<tbody>';
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<tr>';
+                            echo '<td>' . $row['id_pedido'] . '</td>';
+                            echo '<td>' . $row['usuario'] . '</td>';
+                            echo '<td>' . $row['fecha_pedido'] . '</td>';
+                            echo '<td>' . $row['total'] . '</td>';
+                            echo '<td>
+                                    <form action="eliminar_pedido.php" method="POST" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar este pedido?\');">
+                                        <input type="hidden" name="id_pedido" value="' . $row['id_pedido'] . '">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </td>';
+                            echo '</tr>';
+                        }
+                        echo '</tbody>';
+                        echo '</table>';
+                    } else {
+                        echo '<p>Todos los pedidos fueron eliminados.</p>';
+                    }
+                ?>
+            </div>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
 </body>
 </html>
-
-
-
-

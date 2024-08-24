@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             DeportiNet
         </a>
         <form id="form" role="search" action="buscar.php" method="GET" class="searchbar">
-            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content" required>
             <button type="submit">
                 <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     0
                 </span>
             </a>
+            <?php echo $_SESSION['usuario']; ?>
             <!-- Dropdown de perfil -->
             <div class="dropdown" style="display: inline">
                 <a class="profile" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -90px;">
-                    <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
+                    <li><a class="dropdown-item" href="../../logeo.php" style="margin-left: 0;text-align: center;">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -153,19 +154,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($result->num_rows > 0) {
                     echo '<ul class="contenido">';
                     while ($row = $result->fetch_assoc()) {
-                        echo "<li class='producto'>Nombre: " . $row['nombre'] . "<br> 
-                            Precio: $" . $row['precio'] . "<br> 
-                            Categoría: " . $row['nombre_categoria'] . "<br>";
+                        echo "<li class='producto'>
+                                Nombre: " . $row['nombre'] . "<br> 
+                                Precio: $" . $row['precio'] . "<br> 
+                                Categoría: " . $row['nombre_categoria'] . "<br>";
 
-                        // Botón para eliminar el producto
                         echo "<form method='POST' action='carrito.php' class='delete-btn'>
                                 <input type='hidden' name='remove_product_id' value='" . $row['id_producto'] . "'>
-                                <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>";
+                                <button type='submit' class='btn btn-danger btn-sm'>Eliminar</button>
+                            </form>";
 
                         // Botón para abrir el modal
                         echo "<button type='button' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#modalProducto" . $row['id_producto'] . "'>Comprar</button>";
-
-                        echo "</form>";
 
                         // Modal con la información del producto y botón "Comprar"
                         echo "<div class='modal fade' id='modalProducto" . $row['id_producto'] . "' tabindex='-1' aria-labelledby='modalLabel" . $row['id_producto'] . "' aria-hidden='true'>
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <p>Categoría: " . $row['nombre_categoria'] . "</p>
                                             <form method='POST' action='procesar_pedido.php'>
                                                 <input type='hidden' name='productos[0][id]' value='" . $row['id_producto'] . "'>
-                                                <input type='hidden' name='productos[0][cantidad]' value='1'>
+                                                <input type='number' name='productos[0][cantidad]' value='1' min='1' class='form-control mb-2'>
                                                 <input type='hidden' name='productos[0][precio]' value='" . $row['precio'] . "'>
                                                 <button type='submit' class='btn btn-primary'>Comprar</button>
                                             </form>

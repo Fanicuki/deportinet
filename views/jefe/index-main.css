@@ -151,7 +151,6 @@ html {
     background-color: white;
     position: relative;
     width: 100%;
-    z-index: 1;
     box-shadow: 4px 6px 4px rgba(0, 0, 0, 0.3);
     display: flex;  
     gap: 50px;
@@ -302,6 +301,7 @@ html {
     height: 44px;
     margin-right: 10px;
 }
+
 @media (max-width: 768px) {
 
 
@@ -359,6 +359,7 @@ html {
 
     .sidebar {
         top: 120px;
+        z-index: 0;
     }
 
     .main-content {
@@ -378,5 +379,6 @@ html {
     }
     .sidebar a {
         margin-top: 50px;
+        
     }
 }

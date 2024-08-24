@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             DeportiNet
         </a>
         <form id="form" role="search" action="buscar.php" method="GET" class="searchbar">
-            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content" required>
             <button type="submit">
                 <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             </button>
         </form>
         <div class="navbar-icons">
-            
+            <?php echo $_SESSION['usuario']; ?>
             <!-- Dropdown de perfil -->
             <div class="dropdown" style="display: inline">
                 <a class="profile " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -90px;">
-                    <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
+                    <li><a class="dropdown-item" href="../../logeo.php" style="margin-left: 0;text-align: center;">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
-        <a href="#catalogo">
+        <a href="pedidos-jefe.php">
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
             <path d="M12 6v6l4 2"></path>
@@ -109,11 +109,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
         <div class="sub-content">
             <div class="sub-navbar">
                 <p>Catálogo</p>
-                <a href="#"><button type="button" style="background-color: transparent; border-color: transparent; float: right"><p style="font-size: 20px; ">Añadir producto</p><svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 12c0-4.969-4.031-9-9-9s-9 4.031-9 9 4.031 9 9 9 9-4.031 9-9Z"></path>
-                <path d="M12 8.25v7.5"></path>
-                <path d="M15.75 12h-7.5"></path>
-                </svg></button></a>
+                <a href="#"><button type="button" style="background-color: transparent; border-color: transparent; float: right" onclick="openModal()">
+                <p style="font-size: 20px;">Añadir producto</p>
+                <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12c0-4.969-4.031-9-9-9s-9 4.031-9 9 4.031 9 9 9 9-4.031 9-9Z"></path>
+                    <path d="M12 8.25v7.5"></path>
+                    <path d="M15.75 12h-7.5"></path>
+                </svg>
+            </button></a>
+
+            <div id="addProductModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <form id="addProductForm" method="POST" action="añadir_producto.php">
+                        <label for="nombre">Nombre del producto:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                        
+                        <label for="descripcion">Descripción:</label>
+                        <textarea id="descripcion" name="descripcion" required></textarea>
+                        
+                        <label for="precio">Precio:</label>
+                        <input type="number" id="precio" name="precio" step="0.01" required>
+                        
+                        <label for="stock">Stock:</label>
+                        <input type="number" id="stock" name="stock" required>
+                        
+
+                        <label for="id_categoria">Categoría:</label>
+                        <select id="id_categoria" name="id_categoria" required>
+                            <option value="1">Pelotas</option>
+                            <option value="2">Indumentaria deportiva</option>
+                            <option value="3">Calzado Deportivo</option>
+                        </select>
+
+                        <button type="submit" style="display: flex; margin-top: 15px;">Añadir Producto</button>
+                    </form>
+                </div>
+            </div>
+
             </div>
             <div class="list-sub-navbar">
                 <p>Producto</p>
@@ -147,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                     echo "No hay productos disponibles";
                 }
             ?>
-        </div>
+    </div>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -166,6 +199,106 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
         // Actualiza el contador cuando se carga la página
         window.onload = updateCartCount;
     </script>
-</body>
+    <script>
+        function openModal() {
+            document.getElementById("addProductModal").style.display = "block";
+        }
 
+        function closeModal() {
+            document.getElementById("addProductModal").style.display = "none";
+        }
+
+    </script>
+</body>
+<style>
+    #addProductModal {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none; /* Ocultar inicialmente */
+    animation: slideDown 0.4s ease-out; /* Animación de desplazamiento */
+}
+
+@keyframes slideDown {
+    from {
+        top: -100%;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        top: 0;
+        opacity: 1;
+    }
+    to {
+        top: -100%;
+        opacity: 0;
+    }
+}
+
+.modal-content {
+    background-color: #333; /* Fondo oscuro para resaltar el texto blanco */
+    color: white; /* Texto blanco */
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    margin: 250px auto; /* Centrado vertical y horizontal */
+    position: relative;
+}
+
+
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content textarea {
+    width: 95%; /* Asegura que los inputs tomen todo el ancho disponible */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+}
+
+.modal-content textarea {
+    resize: none;
+    max-width: 100%;
+    height: 100px; /* Limite de altura para el input de descripción */
+}
+
+.close {
+    color: white;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#addProductModal.close-modal {
+    animation: slideUp 0.4s ease-out forwards; /* Animación al cerrar */
+}
+
+body.modal-content {
+    overflow: hidden;
+}
+
+</style>
 </html>

@@ -36,7 +36,7 @@ if (!isset($_SESSION['usuario_id'])) {
             DeportiNet
         </a>
         <form id="form" role="search" action="buscar.php" method="GET">
-            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content" required>
             <button type="submit">
                 <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
             DeportiNet
         </a>
         <form id="form" role="search" action="buscar.php" method="GET" class="searchbar">
-            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content">
+            <input type="search" id="query" name="q" placeholder="Buscar..." aria-label="Search through site content" required>
             <button type="submit">
                 <svg width="30" height="30" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
         </form>
         <div class="navbar-icons">
             <!-- Dropdown de perfil -->
+            <?php echo $_SESSION['usuario']; ?>
             <div class="dropdown" style="display: inline">
                 <a class="profile " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg width="46" height="46" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="top: 40px; left: -90px;">
-                    <li><a class="dropdown-item" href="../../logeo.php">Cerrar sesión</a></li>
+                    <li><a class="dropdown-item" href="../../logeo.php" style="margin-left: 0;text-align: center;">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -92,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
                 <path d="M10.5 19h11"></path>
                 <path d="M10.5 5h11"></path>
               </svg>Catálogo</a>
-        <a href="#catalogo">
+        <a href="pedidos-jefe.php">
             <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
             <path d="M12 6v6l4 2"></path>

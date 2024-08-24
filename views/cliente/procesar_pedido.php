@@ -10,19 +10,34 @@ if (!isset($_SESSION['usuario'])) {
 $id_usuario = $_SESSION['usuario_id']; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['productos']) || !is_array($_POST['productos'])) {
+        echo "No se han enviado productos.";
+        exit;
+    }
+
     $productos = $_POST['productos']; 
     $total = 0;
 
+    // Verifica que la lista de productos no esté vacía
+    if (empty($productos)) {
+        echo "El carrito está vacío.";
+        exit;
+    }
+
     $conn->begin_transaction();
     try {
-        // Insert the order
+        // Insertar el pedido
         $stmt = $conn->prepare("INSERT INTO Pedidos (id_usuario, estado, total) VALUES (?, 'En proceso', ?)");
         $stmt->bind_param("id", $id_usuario, $total);
         $stmt->execute();
         $id_pedido = $conn->insert_id;
 
-        // Insert the order details
+        // Insertar los detalles del pedido
         foreach ($productos as $producto) {
+            if (!isset($producto['id'], $producto['cantidad'], $producto['precio'])) {
+                throw new Exception("Datos de producto incompletos.");
+            }
+
             $id_producto = $producto['id'];
             $cantidad = $producto['cantidad'];
             $precio = $producto['precio'];
@@ -33,10 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
         }
 
-        // Update the total
+        // Actualizar el total
         $stmt = $conn->prepare("UPDATE Pedidos SET total = ? WHERE id_pedido = ?");
         $stmt->bind_param("di", $total, $id_pedido);
         $stmt->execute();
+
+        // Eliminar productos del carrito del usuario
+        unset($_SESSION['cart']); // Suponiendo que guardas el carrito en la sesión
 
         $conn->commit();
         echo "Pedido creado";
