@@ -10,14 +10,6 @@
 </head>
 
 <body>
-<?php
-session_start();
-
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: ../../logeo.php"); // Redirigir al login si no hay sesión
-    exit();
-}
-?>
 
     <!-- Navbar -->
     <div class="navbar">
